@@ -9,11 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let remoteURL = URL(string: "https://github.com/OrWest/SwiftAsyncOp.git")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        let repo = try! Repo(gitURL: remoteURL)
+        
+        print(123)
     }
-
-
 }
 

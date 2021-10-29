@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9732CAEF272B034A00702DA4 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAEE272B034A00702DA4 /* Repo.swift */; };
 		9769BB68272AF0280080780B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB67272AF0280080780B /* AppDelegate.swift */; };
 		9769BB6A272AF0280080780B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB69272AF0280080780B /* SceneDelegate.swift */; };
 		9769BB6C272AF0280080780B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB6B272AF0280080780B /* ViewController.swift */; };
@@ -16,8 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9732CAE6272AFD6F00702DA4 /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = Carthage/Build/iOS/ObjectiveGit.framework; sourceTree = "<group>"; };
+		9732CAEE272B034A00702DA4 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		9769BB64272AF0280080780B /* GitWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9769BB67272AF0280080780B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9769BB67272AF0280080780B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../New Group/AppDelegate.swift"; sourceTree = "<group>"; };
 		9769BB69272AF0280080780B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9769BB6B272AF0280080780B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9769BB6E272AF0280080780B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,11 +40,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9732CAF0272B038E00702DA4 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9769BB70272AF02B0080780B /* Assets.xcassets */,
+				9769BB72272AF02B0080780B /* LaunchScreen.storyboard */,
+				9769BB75272AF02B0080780B /* Info.plist */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		9732CAF2272B03A700702DA4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9769BB67272AF0280080780B /* AppDelegate.swift */,
+				9769BB69272AF0280080780B /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		9769BB5B272AF0280080780B = {
 			isa = PBXGroup;
 			children = (
 				9769BB66272AF0280080780B /* GitWorld */,
 				9769BB65272AF0280080780B /* Products */,
+				9769BB7E272AF45C0080780B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +79,21 @@
 		9769BB66272AF0280080780B /* GitWorld */ = {
 			isa = PBXGroup;
 			children = (
-				9769BB67272AF0280080780B /* AppDelegate.swift */,
-				9769BB69272AF0280080780B /* SceneDelegate.swift */,
+				9732CAF2272B03A700702DA4 /* App */,
+				9732CAF0272B038E00702DA4 /* Resource */,
 				9769BB6B272AF0280080780B /* ViewController.swift */,
 				9769BB6D272AF0280080780B /* Main.storyboard */,
-				9769BB70272AF02B0080780B /* Assets.xcassets */,
-				9769BB72272AF02B0080780B /* LaunchScreen.storyboard */,
-				9769BB75272AF02B0080780B /* Info.plist */,
+				9732CAEE272B034A00702DA4 /* Repo.swift */,
 			);
 			path = GitWorld;
+			sourceTree = "<group>";
+		};
+		9769BB7E272AF45C0080780B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9732CAE6272AFD6F00702DA4 /* ObjectiveGit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +103,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9769BB78272AF02B0080780B /* Build configuration list for PBXNativeTarget "GitWorld" */;
 			buildPhases = (
+				9732CAEA272AFD8400702DA4 /* Carthage */,
 				9769BB60272AF0280080780B /* Sources */,
 				9769BB61272AF0280080780B /* Frameworks */,
 				9769BB62272AF0280080780B /* Resources */,
@@ -83,6 +113,8 @@
 			dependencies = (
 			);
 			name = GitWorld;
+			packageProductDependencies = (
+			);
 			productName = GitWorld;
 			productReference = 9769BB64272AF0280080780B /* GitWorld.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +143,8 @@
 				Base,
 			);
 			mainGroup = 9769BB5B272AF0280080780B;
+			packageReferences = (
+			);
 			productRefGroup = 9769BB65272AF0280080780B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,12 +167,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9732CAEA272AFD8400702DA4 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ObjectiveGit.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9769BB60272AF0280080780B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9769BB6C272AF0280080780B /* ViewController.swift in Sources */,
+				9732CAEF272B034A00702DA4 /* Repo.swift in Sources */,
 				9769BB68272AF0280080780B /* AppDelegate.swift in Sources */,
 				9769BB6A272AF0280080780B /* SceneDelegate.swift in Sources */,
 			);
@@ -290,8 +347,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2FA6387WHP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GitWorld/Info.plist;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS/ObjectiveGit.framework/Headers/";
+				INFOPLIST_FILE = GitWorld/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -300,6 +362,11 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/pcre/8.45/lib,
+					"$(PROJECT_DIR)/Carthage/Build/iOS/ObjectiveGit.framework",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld;
@@ -318,8 +385,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2FA6387WHP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GitWorld/Info.plist;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS/ObjectiveGit.framework/Headers/";
+				INFOPLIST_FILE = GitWorld/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -328,6 +400,11 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/pcre/8.45/lib,
+					"$(PROJECT_DIR)/Carthage/Build/iOS/ObjectiveGit.framework",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld;
