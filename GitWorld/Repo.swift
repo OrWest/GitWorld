@@ -15,14 +15,15 @@ enum RepoError: Error {
 }
 
 class Repo {
+    private let fileManager = FileManager.default
     private let gitURL: URL
     private let localURL: URL
     private var repo: GTRepository?
-    
-    init(gitURL: URL) throws {
+
+    init(gitURL: URL, fileManager: FileManager = FileManager.default) throws {
+        self.fileManager = fileManager
         self.gitURL = gitURL
         
-        let fileManager = FileManager.default
         guard let rootURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw RepoError.noDocumentFolder
         }
