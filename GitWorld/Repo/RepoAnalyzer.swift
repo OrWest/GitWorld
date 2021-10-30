@@ -8,19 +8,18 @@
 import Foundation
 
 class RepoAnalyzer {
-    private let fileManager: FileManager
-    private let localURL: URL
     private let filesURL: [URL]
     
-    private(set) var repoTraits: RepoTraits
+    let repoTraits: RepoTraits
     
     init(localURL: URL, fileManager: FileManager = FileManager.default) {
-        self.fileManager = fileManager
-        self.localURL = localURL
         self.filesURL = RepoAnalyzer.getFilesPathsToAnalyze(fileManager: fileManager, localURL: localURL)
-        self.repoTraits = RepoTraits()
-        
-        analyzeFiles(urls: filesURL)
+        self.repoTraits = RepoAnalyzer.analyzeFiles(urls: filesURL)
+    }
+    
+    init(repoTraits: RepoTraits) {
+        self.filesURL = []
+        self.repoTraits = repoTraits
     }
     
     private static func getFilesPathsToAnalyze(fileManager: FileManager, localURL: URL) -> [URL] {
@@ -57,7 +56,7 @@ class RepoAnalyzer {
         }
     }
     
-    private func analyzeFiles(urls: [URL]) {
-        repoTraits = urls.map { FileTraits(url: $0) }.reduce(into: RepoTraits()) { $0.accumulateTraits(traits: $1) }
+    private static func analyzeFiles(urls: [URL]) -> RepoTraits {
+        return urls.map { FileTraits(url: $0) }.reduce(into: RepoTraits()) { $0.accumulateTraits(traits: $1) }
     }
 }

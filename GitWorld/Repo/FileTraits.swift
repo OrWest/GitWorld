@@ -39,4 +39,9 @@ class FileTraits {
             default: break
         }
     }
+    
+    init(fileName: String, linesCount: Int) {
+        self.fileName = fileName
+        self.lineCount = linesCount
+    }
 }
