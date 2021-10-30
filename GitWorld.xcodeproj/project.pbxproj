@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9732CAEF272B034A00702DA4 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAEE272B034A00702DA4 /* Repo.swift */; };
+		9732CAF4272C243100702DA4 /* FileTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAF3272C243100702DA4 /* FileTraits.swift */; };
+		9732CAF6272C244100702DA4 /* RepoTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAF5272C244100702DA4 /* RepoTraits.swift */; };
+		9732CAF8272C26D600702DA4 /* ReadStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAF7272C26D600702DA4 /* ReadStream.swift */; };
+		9732CAFB272D667800702DA4 /* Sequance+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAFA272D667800702DA4 /* Sequance+safe.swift */; };
+		9732CAFD272D6AE400702DA4 /* RepoIgnore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9732CAFC272D6AE400702DA4 /* RepoIgnore.swift */; };
 		9769BB68272AF0280080780B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB67272AF0280080780B /* AppDelegate.swift */; };
 		9769BB6A272AF0280080780B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB69272AF0280080780B /* SceneDelegate.swift */; };
 		9769BB6C272AF0280080780B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769BB6B272AF0280080780B /* ViewController.swift */; };
@@ -20,6 +25,11 @@
 /* Begin PBXFileReference section */
 		9732CAE6272AFD6F00702DA4 /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = Carthage/Build/iOS/ObjectiveGit.framework; sourceTree = "<group>"; };
 		9732CAEE272B034A00702DA4 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		9732CAF3272C243100702DA4 /* FileTraits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTraits.swift; sourceTree = "<group>"; };
+		9732CAF5272C244100702DA4 /* RepoTraits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTraits.swift; sourceTree = "<group>"; };
+		9732CAF7272C26D600702DA4 /* ReadStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStream.swift; sourceTree = "<group>"; };
+		9732CAFA272D667800702DA4 /* Sequance+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Sequance+safe.swift"; path = "GitWorld/Sequance+safe.swift"; sourceTree = SOURCE_ROOT; };
+		9732CAFC272D6AE400702DA4 /* RepoIgnore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoIgnore.swift; sourceTree = "<group>"; };
 		9769BB64272AF0280080780B /* GitWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9769BB67272AF0280080780B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../New Group/AppDelegate.swift"; sourceTree = "<group>"; };
 		9769BB69272AF0280080780B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +71,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		9732CAF9272D666D00702DA4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9732CAFA272D667800702DA4 /* Sequance+safe.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		9769BB5B272AF0280080780B = {
 			isa = PBXGroup;
 			children = (
@@ -81,12 +99,17 @@
 		9769BB66272AF0280080780B /* GitWorld */ = {
 			isa = PBXGroup;
 			children = (
+				9732CAF9272D666D00702DA4 /* Extension */,
 				9732CAF2272B03A700702DA4 /* App */,
 				9732CAF0272B038E00702DA4 /* Resource */,
 				9769BB6B272AF0280080780B /* ViewController.swift */,
 				9769BB6D272AF0280080780B /* Main.storyboard */,
 				9732CAEE272B034A00702DA4 /* Repo.swift */,
 				F20BE0C4272BE10C00B2BC44 /* RepoAnalyzer.swift */,
+				9732CAF3272C243100702DA4 /* FileTraits.swift */,
+				9732CAF5272C244100702DA4 /* RepoTraits.swift */,
+				9732CAF7272C26D600702DA4 /* ReadStream.swift */,
+				9732CAFC272D6AE400702DA4 /* RepoIgnore.swift */,
 			);
 			path = GitWorld;
 			sourceTree = "<group>";
@@ -197,10 +220,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9732CAF6272C244100702DA4 /* RepoTraits.swift in Sources */,
+				9732CAFD272D6AE400702DA4 /* RepoIgnore.swift in Sources */,
 				9769BB6C272AF0280080780B /* ViewController.swift in Sources */,
 				9732CAEF272B034A00702DA4 /* Repo.swift in Sources */,
+				9732CAFB272D667800702DA4 /* Sequance+safe.swift in Sources */,
+				9732CAF8272C26D600702DA4 /* ReadStream.swift in Sources */,
 				9769BB68272AF0280080780B /* AppDelegate.swift in Sources */,
 				F20BE0C5272BE10C00B2BC44 /* RepoAnalyzer.swift in Sources */,
+				9732CAF4272C243100702DA4 /* FileTraits.swift in Sources */,
 				9769BB6A272AF0280080780B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

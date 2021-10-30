@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let repo = try! Repo(gitURL: remoteURL)
+        let fileAnalyzer = RepoAnalyzer(localURL: repo.localURL)
         
         print(123)
     }

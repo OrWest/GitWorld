@@ -11,13 +11,14 @@ import ObjectiveGit
 enum RepoError: Error {
     case noDocumentFolder
     case cantCreateLocalFolder
+    case cloneError(Error)
     case gitError(Error)
 }
 
 class Repo {
-    private let fileManager = FileManager.default
+    private let fileManager: FileManager
     private let gitURL: URL
-    private let localURL: URL
+    let localURL: URL
     private var repo: GTRepository?
 
     init(gitURL: URL, fileManager: FileManager = FileManager.default) throws {
@@ -53,11 +54,17 @@ class Repo {
             repo = try GTRepository.init(url: localURL)
         } catch {
             if (error as NSError).code == -3 { // No such directory error. Clone
-                repo = try GTRepository.clone(from: gitURL, toWorkingDirectory: localURL, options: nil, transferProgressBlock: nil)
+                do {
+                    repo = try GTRepository.clone(from: gitURL, toWorkingDirectory: localURL, options: nil, transferProgressBlock: nil)
+                } catch {
+                    throw RepoError.cloneError(error)
+                }
             } else {
                 throw RepoError.gitError(error)
             }
         }
+        
+        self.repo = repo
         
 //        let head = try! repo.headReference()
 //        let lastCommit = try! repo.lookUpObject(by: head.targetOID!) as! GTCommit
