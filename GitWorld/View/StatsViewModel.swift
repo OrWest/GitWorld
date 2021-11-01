@@ -16,7 +16,23 @@ class StatsViewModel {
     
     var rows: [Row] = []
     
-    init(repoTraits: RepoTraits) {
+    init(traits: RepoTraits? = nil) {
+        let repoTraits: RepoTraits
+        if let traits = traits {
+            repoTraits = traits
+        } else {
+            let repo: Repo
+            do {
+                repo = try Repo(gitURL: URL(string: "https://github.com/OrWest/SwiftAsyncOp")!)
+            } catch {
+                print("Can't initialize repo: \(error)")
+                return
+            }
+            
+            let analyzer = RepoAnalyzer(localURL: repo.localURL)
+            repoTraits = analyzer.repoTraits
+        }
+        
         if repoTraits.containsReadMe {
             rows.append(Row(text: "ReadMe", imageName: "readme_icon", rightText: nil))
         }

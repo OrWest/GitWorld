@@ -17,6 +17,6 @@ struct StatsView: View {
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatsView(viewModel: StatsViewModel(repoTraits: .stub))
+        StatsView(viewModel: StatsViewModel(traits: .stub))
     }
 }
