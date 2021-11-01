@@ -126,13 +126,10 @@
 		975D666E272E94E500D7F6C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				975D669C272FFDA900D7F6C9 /* RepoStats */,
+				975D669B272FFD9F00D7F6C9 /* RepoSet */,
 				975D6659272E939300D7F6C9 /* GitWorldApp.swift */,
-				975D6674272E95C500D7F6C9 /* StatRow.swift */,
-				975D6675272E95C500D7F6C9 /* StatsView.swift */,
-				975D6676272E95C500D7F6C9 /* StatsViewModel.swift */,
 				975D665B272E939300D7F6C9 /* DataBaseTableView.swift */,
-				975D6693272FED1200D7F6C9 /* RepoSetView.swift */,
-				975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +170,25 @@
 				975D668F272E97A100D7F6C9 /* ObjectiveGit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		975D669B272FFD9F00D7F6C9 /* RepoSet */ = {
+			isa = PBXGroup;
+			children = (
+				975D6693272FED1200D7F6C9 /* RepoSetView.swift */,
+				975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */,
+			);
+			path = RepoSet;
+			sourceTree = "<group>";
+		};
+		975D669C272FFDA900D7F6C9 /* RepoStats */ = {
+			isa = PBXGroup;
+			children = (
+				975D6674272E95C500D7F6C9 /* StatRow.swift */,
+				975D6675272E95C500D7F6C9 /* StatsView.swift */,
+				975D6676272E95C500D7F6C9 /* StatsViewModel.swift */,
+			);
+			path = RepoStats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
