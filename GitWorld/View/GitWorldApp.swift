@@ -16,10 +16,10 @@ struct GitWorldApp: App {
         WindowGroup {
 //            DataBaseTableView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            if gitURLInSettings == nil {
-                RepoSetView(viewModel: RepoSetViewModel())
+            if let gitURLInSettings = gitURLInSettings, let url = URL(string: gitURLInSettings), let repo = Repo(gitURL: url) {
+                StatsView(viewModel: StatsViewModel(repo: repo))
             } else {
-                StatsView(viewModel: StatsViewModel())
+                RepoSetView(viewModel: RepoSetViewModel())
             }
         }
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9741706727316C96008FD6C3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9741706627316C96008FD6C3 /* Logger.swift */; };
 		975D665A272E939300D7F6C9 /* GitWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6659272E939300D7F6C9 /* GitWorldApp.swift */; };
 		975D665C272E939300D7F6C9 /* DataBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D665B272E939300D7F6C9 /* DataBaseTableView.swift */; };
 		975D665E272E939600D7F6C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 975D665D272E939600D7F6C9 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9741706627316C96008FD6C3 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		975D6656272E939300D7F6C9 /* GitWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		975D6659272E939300D7F6C9 /* GitWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitWorldApp.swift; sourceTree = "<group>"; };
 		975D665B272E939300D7F6C9 /* DataBaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseTableView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				975D6662272E939600D7F6C9 /* Persistence.swift */,
 				975D6699272FFBD900D7F6C9 /* AppStorageKey.swift */,
+				9741706627316C96008FD6C3 /* Logger.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				975D6684272E95D100D7F6C9 /* RepoIgnore.swift in Sources */,
 				975D665A272E939300D7F6C9 /* GitWorldApp.swift in Sources */,
 				975D6689272E95D100D7F6C9 /* Sequance+safe.swift in Sources */,
+				9741706727316C96008FD6C3 /* Logger.swift in Sources */,
 				975D6687272E95D100D7F6C9 /* FileTraits.swift in Sources */,
 				975D6694272FED1200D7F6C9 /* RepoSetView.swift in Sources */,
 				975D6677272E95C500D7F6C9 /* StatRow.swift in Sources */,

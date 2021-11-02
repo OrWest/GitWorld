@@ -9,24 +9,23 @@ import Foundation
 import ObjectiveGit
 
 enum RepoError: Error {
-    case noDocumentFolder
-    case cantCreateLocalFolder
     case cloneError(Error)
-    case gitError(Error)
 }
 
 class Repo {
     private let fileManager: FileManager
     private let gitURL: URL
     let localURL: URL
+    private(set) var cloned: Bool
     private var repo: GTRepository?
 
-    init(gitURL: URL, fileManager: FileManager = FileManager.default) throws {
+    init?(gitURL: URL, fileManager: FileManager = FileManager.default) {
         self.fileManager = fileManager
         self.gitURL = gitURL
         
         guard let rootURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            throw RepoError.noDocumentFolder
+            Logger.log("[REPO] Can't find document folder")
+            return nil
         }
         
         let lastComponent = gitURL.lastPathComponent
@@ -40,32 +39,40 @@ class Repo {
         }
         
         guard let localURL = URL(string: folderName, relativeTo: rootURL) else {
-            throw RepoError.cantCreateLocalFolder
+            Logger.log("[REPO] Can't create local folder in documents")
+            return nil
         }
         
         self.localURL = localURL
         
-        try fetchRepo()
-    }
-    
-    private func fetchRepo() throws {
-        let repo: GTRepository
         do {
             repo = try GTRepository.init(url: localURL)
+            cloned = true
+            Logger.log("[REPO] Initialized locally: \(localURL.lastPathComponent)")
         } catch {
             if (error as NSError).code == -3 { // No such directory error. Clone
-                do {
-                    repo = try GTRepository.clone(from: gitURL, toWorkingDirectory: localURL, options: nil, transferProgressBlock: nil)
-                } catch {
-                    throw RepoError.cloneError(error)
-                }
+                Logger.log("[REPO] \(localURL.lastPathComponent) repo is not cloned.")
+                cloned = false
             } else {
-                throw RepoError.gitError(error)
+                Logger.log("[REPO] \(localURL.lastPathComponent) initialization failed: \(error)")
+                return nil
             }
         }
-        
-        self.repo = repo
-        
+    }
+    
+    func cloneRepo() throws {
+        do {
+            Logger.log("[REPO] Clone \(gitURL.relativePath)")
+            repo = try GTRepository.clone(from: gitURL, toWorkingDirectory: localURL, options: nil) { progressPointer, _ in
+                let progress = progressPointer.pointee
+                Logger.log("Clone progress: \(progress.received_objects)/\(progress.total_objects)")
+            }
+            Logger.log("[Repo] \(localURL.lastPathComponent) cloned")
+        } catch {
+            Logger.log("[REPO] \(localURL.lastPathComponent) clone error: \(error)")
+            throw RepoError.cloneError(error)
+        }
+                
 //        let head = try! repo.headReference()
 //        let lastCommit = try! repo.lookUpObject(by: head.targetOID!) as! GTCommit
 //

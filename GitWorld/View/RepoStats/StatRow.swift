@@ -22,16 +22,17 @@ struct StatRow: View {
                 Image(name)
                     .resizable()
                     .frame(width: 30, height: 30)
+                    .aspectRatio(contentMode: .fit)
             }
         }
-        .padding()
+        .padding(EdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12))
     }
 }
 
 struct StatRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            StatRow(row: StatsViewModel.Row(text: "Swift", imageName: "spm_icon", rightText: nil))
+            StatRow(row: StatsViewModel.Row(text: "Swift", imageName: "readme_icon", rightText: nil))
                 .previewLayout(.fixed(width: 300, height: 70))
             StatRow(row: StatsViewModel.Row(text: "File name", imageName: nil, rightText: "11398"))
                 .previewLayout(.fixed(width: 300, height: 70))

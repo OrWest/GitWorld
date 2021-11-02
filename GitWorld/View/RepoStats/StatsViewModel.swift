@@ -16,22 +16,26 @@ class StatsViewModel {
     
     var rows: [Row] = []
     
-    init(traits: RepoTraits? = nil) {
-        let repoTraits: RepoTraits
-        if let traits = traits {
-            repoTraits = traits
-        } else {
-            let repo: Repo
+    init(traits: RepoTraits) {
+        rows = generateRows(repoTraits: traits)
+    }
+    
+    init(repo: Repo) {
+        if !repo.cloned {
             do {
-                repo = try Repo(gitURL: URL(string: "https://github.com/OrWest/SwiftAsyncOp")!)
+                try repo.cloneRepo()
             } catch {
-                print("Can't initialize repo: \(error)")
+                Logger.log("[StatsViewModel] Clone failed. Pending state.")
                 return
             }
-            
-            let analyzer = RepoAnalyzer(localURL: repo.localURL)
-            repoTraits = analyzer.repoTraits
         }
+        
+        let analyzer = RepoAnalyzer(localURL: repo.localURL)
+        rows = generateRows(repoTraits: analyzer.repoTraits)
+    }
+    
+    private func generateRows(repoTraits: RepoTraits) -> [Row] {
+        var rows: [Row] = []
         
         if repoTraits.containsReadMe {
             rows.append(Row(text: "ReadMe", imageName: "readme_icon", rightText: nil))
@@ -52,5 +56,7 @@ class StatsViewModel {
         for file in repoTraits.generalFiles {
             rows.append(Row(text: file.name, imageName: nil, rightText: String(file.linesCount)))
         }
+        
+        return rows
     }
 }

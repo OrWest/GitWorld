@@ -15,6 +15,7 @@ class RepoAnalyzer {
     init(localURL: URL, fileManager: FileManager = FileManager.default) {
         self.filesURL = RepoAnalyzer.getFilesPathsToAnalyze(fileManager: fileManager, localURL: localURL)
         self.repoTraits = RepoAnalyzer.analyzeFiles(urls: filesURL)
+        Logger.log("\(self.repoTraits)")
     }
     
     init(repoTraits: RepoTraits) {
@@ -33,25 +34,27 @@ class RepoAnalyzer {
                     let isDir = values.isDirectory ?? false
                     
                     guard !RepoIgnore().shouldIgnore(fileName: url.lastPathComponent, isDir: isDir) else {
-                        print("Ignore\(isDir ? " dir" : ""): \(url.lastPathComponent)")
+                        Logger.log("[Analyzer] Ignore\(isDir ? " dir" : ""): \(url.lastPathComponent)")
                         continue
                     }
                     
                     if isDir {
+                        Logger.log("[Analyzer] \(url.relativePath) is dir. Go inside.")
                         let urlsInDir = getFilesPathsToAnalyze(fileManager: fileManager, localURL: url)
                         filesURL.append(contentsOf: urlsInDir)
                     } else {
+                        Logger.log("[Analyzer] File \(url.relativePath) is added.")
                         filesURL.append(url)
                     }
                 } catch {
-                    print("Can't get resource properties from \(url.lastPathComponent): \(error)")
+                    Logger.log("[Analuzer] Can't get resource properties from \(url.lastPathComponent): \(error)")
                     continue
                 }
             }
             
             return filesURL
         } catch {
-            print("RepoAnalyzer: can't get files: \(error.localizedDescription)")
+            Logger.log("[Analyzer]: Can't get files: \(error.localizedDescription)")
             return []
         }
     }

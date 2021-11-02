@@ -13,7 +13,9 @@ enum FileType {
     case license
     case gitignore
     case travis
-    case swiftPackage
+    case packageManager(String)
+    case documentation(String)
+    case test
 }
 
 class FileTraits {
@@ -27,15 +29,18 @@ class FileTraits {
         
         let uppercasedFileName = url.lastPathComponent.lowercased()
         let nameComponents = uppercasedFileName.split(separator: ".", maxSplits: 1, omittingEmptySubsequences: false)
-        let fileExt = nameComponents[safe: 1]
-        let name = nameComponents.first!
+        let fileExt = nameComponents[safe: 1].map { String($0) }
+        let name = String(nameComponents.first!)
         
         switch (name, fileExt) {
             case ("", "travis.yml"): type = .travis
             case ("", "gitignore"): type = .gitignore
             case ("readme", _): type = .readme
-            case ("license", nil): type = .license
-            case ("package", "swift"): type = .swiftPackage
+            case ("license", _): type = .license
+            case ("package", "swift"): type = .packageManager("Swift Package Manager")
+            case ("Cartfile", _): type = .packageManager("Chartage")
+            case (let name, "md"): type = .documentation(name)
+            case (let name, _) where name.lowercased().contains("tests"): type = .test
             default: break
         }
     }
