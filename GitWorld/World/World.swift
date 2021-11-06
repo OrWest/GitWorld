@@ -8,5 +8,10 @@
 import Foundation
 
 class World {
+    let name: String
     var villages: [Village] = []
+    
+    init(name: String) {
+        self.name = name
+    }
 }

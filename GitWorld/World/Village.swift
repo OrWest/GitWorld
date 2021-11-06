@@ -7,12 +7,6 @@
 
 import Foundation
 
-struct VillageColor {
-    let r: Int8
-    let g: Int8
-    let b: Int8
-}
-
 class Village {
     let name: String
     let color: VillageColor

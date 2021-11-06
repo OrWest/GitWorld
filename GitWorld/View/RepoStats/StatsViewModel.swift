@@ -32,6 +32,10 @@ class StatsViewModel {
         
         let analyzer = RepoAnalyzer(localURL: repo.localURL)
         rows = generateRows(repoTraits: analyzer.repoTraits)
+        
+        let worldGenerator = WorldGenerator(name: repo.localURL.deletingPathExtension().lastPathComponent)
+        let world = worldGenerator.generate(repoTraits: analyzer.repoTraits)
+        print(world)
     }
     
     private func generateRows(repoTraits: RepoTraits) -> [Row] {
