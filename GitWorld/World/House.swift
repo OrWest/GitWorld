@@ -12,6 +12,7 @@ class House {
     let size: Int
     
     init(name: String, size: Int) {
+        self.name = name
         self.size = size
     }
 }
