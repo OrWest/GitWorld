@@ -27,6 +27,9 @@
 		975D6694272FED1200D7F6C9 /* RepoSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6693272FED1200D7F6C9 /* RepoSetView.swift */; };
 		975D6696272FF0A000D7F6C9 /* RepoSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */; };
 		975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6699272FFBD900D7F6C9 /* AppStorageKey.swift */; };
+		977298AC27367EAD00CF5303 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298AB27367EAD00CF5303 /* House.swift */; };
+		977298B027367F4400CF5303 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298AF27367F4400CF5303 /* Village.swift */; };
+		977298B22736806A00CF5303 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298B12736806A00CF5303 /* World.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +68,9 @@
 		975D6693272FED1200D7F6C9 /* RepoSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSetView.swift; sourceTree = "<group>"; };
 		975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSetViewModel.swift; sourceTree = "<group>"; };
 		975D6699272FFBD900D7F6C9 /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
+		977298AB27367EAD00CF5303 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		977298AF27367F4400CF5303 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
+		977298B12736806A00CF5303 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				975D6681272E95D100D7F6C9 /* Extension */,
+				977298A827367E8A00CF5303 /* World */,
 				975D667A272E95D100D7F6C9 /* Repo */,
 				975D666F272E94F200D7F6C9 /* App */,
 				975D666E272E94E500D7F6C9 /* View */,
@@ -192,6 +199,16 @@
 				975D6676272E95C500D7F6C9 /* StatsViewModel.swift */,
 			);
 			path = RepoStats;
+			sourceTree = "<group>";
+		};
+		977298A827367E8A00CF5303 /* World */ = {
+			isa = PBXGroup;
+			children = (
+				977298AB27367EAD00CF5303 /* House.swift */,
+				977298AF27367F4400CF5303 /* Village.swift */,
+				977298B12736806A00CF5303 /* World.swift */,
+			);
+			path = World;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,12 +309,15 @@
 				975D6688272E95D100D7F6C9 /* Repo.swift in Sources */,
 				975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */,
 				975D6679272E95C500D7F6C9 /* StatsViewModel.swift in Sources */,
+				977298B027367F4400CF5303 /* Village.swift in Sources */,
 				975D6663272E939600D7F6C9 /* Persistence.swift in Sources */,
 				975D6685272E95D100D7F6C9 /* ReadStream.swift in Sources */,
 				975D6686272E95D100D7F6C9 /* RepoAnalyzer.swift in Sources */,
 				975D6666272E939600D7F6C9 /* GitWorld.xcdatamodeld in Sources */,
+				977298AC27367EAD00CF5303 /* House.swift in Sources */,
 				975D6678272E95C500D7F6C9 /* StatsView.swift in Sources */,
 				975D665C272E939300D7F6C9 /* DataBaseTableView.swift in Sources */,
+				977298B22736806A00CF5303 /* World.swift in Sources */,
 				975D6684272E95D100D7F6C9 /* RepoIgnore.swift in Sources */,
 				975D665A272E939300D7F6C9 /* GitWorldApp.swift in Sources */,
 				975D6689272E95D100D7F6C9 /* Sequance+safe.swift in Sources */,
