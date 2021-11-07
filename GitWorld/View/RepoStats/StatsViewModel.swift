@@ -21,21 +21,21 @@ class StatsViewModel {
     }
     
     init(repo: Repo) {
-        if !repo.cloned {
-            do {
-                try repo.cloneRepo()
-            } catch {
-                Logger.log("[StatsViewModel] Clone failed. Pending state.")
-                return
-            }
-        }
-        
-        let analyzer = RepoAnalyzer(localURL: repo.localURL)
-        rows = generateRows(repoTraits: analyzer.repoTraits)
-        
-        let worldGenerator = WorldGenerator(name: repo.localURL.deletingPathExtension().lastPathComponent)
-        let world = worldGenerator.generate(repoTraits: analyzer.repoTraits)
-        print(world)
+//        if !repo.cloned {
+//            do {
+//                try repo.cloneRepo()
+//            } catch {
+//                Logger.log("[StatsViewModel] Clone failed. Pending state.")
+//                return
+//            }
+//        }
+//        
+//        let analyzer = RepoAnalyzer(localURL: repo.localURL)
+//        rows = generateRows(repoTraits: analyzer.repoTraits)
+//        
+//        let worldGenerator = WorldGenerator(name: repo.localURL.deletingPathExtension().lastPathComponent)
+//        let world = worldGenerator.generate(repoTraits: analyzer.repoTraits)
+//        print(world)
     }
     
     private func generateRows(repoTraits: RepoTraits) -> [Row] {

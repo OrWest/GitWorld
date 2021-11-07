@@ -34,6 +34,8 @@
 		977298B62736816E00CF5303 /* WorldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298B52736816E00CF5303 /* WorldBuilder.swift */; };
 		977298B82736830C00CF5303 /* VillageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298B72736830C00CF5303 /* VillageColor.swift */; };
 		977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BA2736836800CF5303 /* VillageColorDistributor.swift */; };
+		977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BD2736B76200CF5303 /* WorldMapView.swift */; };
+		977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +81,8 @@
 		977298B52736816E00CF5303 /* WorldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldBuilder.swift; sourceTree = "<group>"; };
 		977298B72736830C00CF5303 /* VillageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageColor.swift; sourceTree = "<group>"; };
 		977298BA2736836800CF5303 /* VillageColorDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageColorDistributor.swift; sourceTree = "<group>"; };
+		977298BD2736B76200CF5303 /* WorldMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapView.swift; sourceTree = "<group>"; };
+		977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 		975D666E272E94E500D7F6C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				977298BC2736B75200CF5303 /* WorldMap */,
 				975D669C272FFDA900D7F6C9 /* RepoStats */,
 				975D669B272FFD9F00D7F6C9 /* RepoSet */,
 				975D6659272E939300D7F6C9 /* GitWorldApp.swift */,
@@ -229,6 +234,15 @@
 				977298BA2736836800CF5303 /* VillageColorDistributor.swift */,
 			);
 			path = Color;
+			sourceTree = "<group>";
+		};
+		977298BC2736B75200CF5303 /* WorldMap */ = {
+			isa = PBXGroup;
+			children = (
+				977298BD2736B76200CF5303 /* WorldMapView.swift */,
+				977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */,
+			);
+			path = WorldMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,8 +341,10 @@
 			files = (
 				975D6683272E95D100D7F6C9 /* RepoTraits.swift in Sources */,
 				975D6688272E95D100D7F6C9 /* Repo.swift in Sources */,
+				977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */,
 				975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */,
 				975D6679272E95C500D7F6C9 /* StatsViewModel.swift in Sources */,
+				977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */,
 				977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */,
 				977298B027367F4400CF5303 /* Village.swift in Sources */,
 				975D6663272E939600D7F6C9 /* Persistence.swift in Sources */,
@@ -493,7 +509,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -528,7 +544,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

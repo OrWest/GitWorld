@@ -17,7 +17,7 @@ struct GitWorldApp: App {
 //            DataBaseTableView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             if let gitURLInSettings = gitURLInSettings, let url = URL(string: gitURLInSettings), let repo = Repo(gitURL: url) {
-                StatsView(viewModel: StatsViewModel(repo: repo))
+                WorldMapView(viewModel: WorldMapViewModel(repo: repo))
             } else {
                 RepoSetView(viewModel: RepoSetViewModel())
             }

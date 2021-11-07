@@ -5,10 +5,11 @@
 //  Created by Aleksandr Motarykin on 1.11.21.
 //
 
+import Foundation
 import SwiftUI
 
 struct RepoSetView: View {
-    let viewModel: RepoSetViewModel
+    @ObservedObject var viewModel: RepoSetViewModel
         
     @State var gitURL: String
     @State var errorToShow: RepoSetViewModel.Error?
@@ -22,16 +23,31 @@ struct RepoSetView: View {
         }
     }
     
+    private let buttonPadding: EdgeInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+    
     var body: some View {
         VStack {
+            HStack {
+                Text("Git").italic() +
+                Text("World").bold()
+            }
+            .font(.largeTitle)
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
             TextField("URL", text: $gitURL)
                 .textFieldStyle(.roundedBorder)
                 .padding()
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+            
             Button(action: pullPressed) {
-                Text("Pull")
-                    .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 10))
+                if viewModel.isCloning {
+                    Text("Cancel")
+                        .padding(buttonPadding)
+                } else {
+                    Text("Pull")
+                        .padding(buttonPadding)
+                }
+                    
             }
             .foregroundColor(Color.white)
             .padding()
@@ -40,23 +56,34 @@ struct RepoSetView: View {
             .alert(item: $errorToShow) { error in
                 Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .cancel())
             }
+            if viewModel.isCloning {
+                ProgressView("Cloning...", value: viewModel.cloneProgress)
+                    .padding()
+                Text("\(viewModel.clonedCount)/\(viewModel.toCloneCount)")
+            }
         }
     }
     
     private func pullPressed() {
-        do {
-            try viewModel.pullNewGit(gitURL)
-        } catch let error as RepoSetViewModel.Error {
-            errorToShow = error
-        } catch {
-            print("Unknown error")
-            assertionFailure()
+        if viewModel.isCloning {
+            viewModel.cancelClone = true
+        } else {
+            do {
+                try viewModel.pullNewGit(gitURL) { error in
+                    self.errorToShow = error
+                }
+            } catch let error as RepoSetViewModel.Error {
+                errorToShow = error
+            } catch {
+                print("Unknown error")
+                assertionFailure()
+            }
         }
     }
 }
 
 struct RepoSetView_Previews: PreviewProvider {
     static var previews: some View {
-        RepoSetView(viewModel: RepoSetViewModel())
+        RepoSetView(viewModel: RepoSetViewModel.stub(cloning: true))
     }
 }

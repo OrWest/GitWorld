@@ -8,11 +8,21 @@
 import Foundation
 import ObjectiveGit
 
+class RepoCancel {
+    private(set) var isCancelled = false
+    
+    func cancel() {
+        isCancelled = true
+    }
+}
+
 enum RepoError: Error {
     case cloneError(Error)
 }
 
 class Repo {
+    private let gitCancelErrorCode = -7
+    
     private let fileManager: FileManager
     private let gitURL: URL
     let localURL: URL
@@ -60,22 +70,50 @@ class Repo {
         }
     }
     
-    func cloneRepo() throws {
-        do {
-            Logger.log("[REPO] Clone \(gitURL.relativePath)")
-            repo = try GTRepository.clone(from: gitURL, toWorkingDirectory: localURL, options: nil) { progressPointer, _ in
-                let progress = progressPointer.pointee
-                Logger.log("Clone progress: \(progress.received_objects)/\(progress.total_objects)")
-            }
-            Logger.log("[Repo] \(localURL.lastPathComponent) cloned")
-        } catch {
-            Logger.log("[REPO] \(localURL.lastPathComponent) clone error: \(error)")
-            throw RepoError.cloneError(error)
-        }
+    func cloneRepo(repoCancel: RepoCancel, progressBlock: @escaping (Float, Int, Int) -> Void) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
                 
-//        let head = try! repo.headReference()
-//        let lastCommit = try! repo.lookUpObject(by: head.targetOID!) as! GTCommit
-//
-//        print(lastCommit.message!)
+                do {
+                    Logger.log("[REPO] Clone \(self.gitURL.relativePath)")
+                    self.repo = try GTRepository.clone(from: self.gitURL, toWorkingDirectory: self.localURL, options: nil) { progressPointer, stop in
+                        guard !repoCancel.isCancelled else {
+                            stop.pointee = ObjCBool(repoCancel.isCancelled)
+                            return
+                        }
+                        
+                        let progress = progressPointer.pointee
+                        let progressValue = Float(progress.received_objects)/Float(progress.total_objects)
+                        progressBlock(progressValue, Int(progress.received_objects), Int(progress.total_objects))
+                        Logger.log("Clone progress: \(progress.received_objects)/\(progress.total_objects)")
+                    }
+                    self.cloned = true
+                    Logger.log("[Repo] \(self.localURL.lastPathComponent) cloned")
+                    continuation.resume()
+                } catch {
+                    if (error as NSError).code == self.gitCancelErrorCode {
+                        Logger.log("[REPO] \(self.localURL.lastPathComponent) clone cancelled")
+                        continuation.resume()
+                    } else {
+                        Logger.log("[REPO] \(self.localURL.lastPathComponent) clone error: \(error)")
+                        continuation.resume(throwing: RepoError.cloneError(error))
+                    }
+                }
+            }
+        }
+        
     }
+    
+    func deleteRepo() {
+        Logger.log("[Repo] Delete local repo: \(localURL)")
+        do {
+            try fileManager.removeItem(at: localURL)
+        } catch {
+            Logger.log("[Repo] Can't delete repo: \(error)")
+        }
+    }
+}
+
+extension Repo {
+    static let stub = Repo(gitURL: URL(string: "https://www.google.com")!)!
 }
