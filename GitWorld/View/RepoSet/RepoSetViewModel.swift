@@ -44,6 +44,11 @@ class RepoSetViewModel: ObservableObject {
     @Published var toCloneCount = 0
     @Published var isCloning = false
     
+    @Published var analyzeProgress: Float = 0
+    @Published var analyzedCount = 0
+    @Published var toAnalyzeCount = 0
+    @Published var isAnalyzing = false
+    
     var cancelClone = false {
         didSet {
             if cancelClone {
@@ -94,6 +99,13 @@ class RepoSetViewModel: ObservableObject {
                             self.toCloneCount = toClone                            
                         }
                     }
+                    
+                    let analyzer = RepoAnalyzer(localURL: repo.localURL)
+                    await analyzer.analyze()
+                    
+                    let worldName = repo.localURL.deletingPathExtension().lastPathComponent
+                    let worldGenerator = WorldGenerator(name: worldName)
+                    let world = await worldGenerator.generate(repoTraits: analyzer.repoTraits)
                     
                     if !cancelObject!.isCancelled {
                         self.gitURLInSettings = url

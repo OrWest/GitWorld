@@ -10,17 +10,26 @@ import Foundation
 class RepoAnalyzer {
     private let filesURL: [URL]
     
-    let repoTraits: RepoTraits
+    private(set) var repoTraits = RepoTraits()
     
     init(localURL: URL, fileManager: FileManager = FileManager.default) {
         self.filesURL = RepoAnalyzer.getFilesPathsToAnalyze(fileManager: fileManager, localURL: localURL)
-        self.repoTraits = RepoAnalyzer.analyzeFiles(urls: filesURL)
-        Logger.log("\(self.repoTraits)")
     }
     
     init(repoTraits: RepoTraits) {
         self.filesURL = []
         self.repoTraits = repoTraits
+    }
+    
+    func analyze() async {
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                let traits = self.analyzeFiles(urls: self.filesURL)
+                self.repoTraits = traits
+                Logger.log("\(traits)")
+                continuation.resume()
+            }
+        }
     }
     
     private static func getFilesPathsToAnalyze(fileManager: FileManager, localURL: URL) -> [URL] {
@@ -47,7 +56,7 @@ class RepoAnalyzer {
                         filesURL.append(url)
                     }
                 } catch {
-                    Logger.log("[Analuzer] Can't get resource properties from \(url.lastPathComponent): \(error)")
+                    Logger.log("[Analyzer] Can't get resource properties from \(url.lastPathComponent): \(error)")
                     continue
                 }
             }
@@ -59,7 +68,7 @@ class RepoAnalyzer {
         }
     }
     
-    private static func analyzeFiles(urls: [URL]) -> RepoTraits {
+    private func analyzeFiles(urls: [URL]) -> RepoTraits {
         return urls.map { FileTraits(url: $0) }.reduce(into: RepoTraits()) { $0.accumulateTraits(traits: $1) }
     }
 }

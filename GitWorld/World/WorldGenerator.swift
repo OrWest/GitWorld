@@ -15,6 +15,15 @@ class WorldGenerator {
         builder = WorldBuilder(worldName: name)
     }
     
+    func generate(repoTraits: RepoTraits) async -> World {
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                let world = self.generate(repoTraits: repoTraits)
+                continuation.resume(returning: world)
+            }
+        }
+    }
+    
     func generate(repoTraits: RepoTraits) -> World {
         let groups = groupFilesByExtension(files: repoTraits.generalFiles)
         

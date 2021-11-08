@@ -23,16 +23,6 @@ class WorldMapViewModel {
         
         let worldName = repo.localURL.deletingPathExtension().lastPathComponent
         
-        if !repo.cloned {
-            do {
-                //try repo.cloneRepo()
-            } catch {
-                world = World(name: worldName)
-                Logger.log("[StatsViewModel] Clone failed. Pending state.")
-                return
-            }
-        }
-        
         let analyzer = RepoAnalyzer(localURL: repo.localURL)
         
         let worldGenerator = WorldGenerator(name: worldName)

@@ -57,9 +57,18 @@ struct RepoSetView: View {
                 Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .cancel())
             }
             if viewModel.isCloning {
-                ProgressView("Cloning...", value: viewModel.cloneProgress)
-                    .padding()
-                Text("\(viewModel.clonedCount)/\(viewModel.toCloneCount)")
+                RepoCloneView(
+                    cloneProgress: viewModel.cloneProgress,
+                    clonedCount: viewModel.clonedCount,
+                    toCloneCount: viewModel.toCloneCount
+                )
+            }
+            if viewModel.isAnalyzing {
+                RepoAnalyzeView(
+                    progress: viewModel.analyzeProgress,
+                    analyzedCount: viewModel.analyzedCount,
+                    toAnalyzeCount: viewModel.toAnalyzeCount
+                )
             }
         }
     }
