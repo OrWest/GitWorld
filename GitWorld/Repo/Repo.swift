@@ -113,7 +113,3 @@ class Repo {
         }
     }
 }
-
-extension Repo {
-    static let stub = Repo(gitURL: URL(string: "https://www.google.com")!)!
-}

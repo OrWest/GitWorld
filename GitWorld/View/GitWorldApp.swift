@@ -9,18 +9,31 @@ import SwiftUI
 
 @main
 struct GitWorldApp: App {
-    @AppStorage(AppStorageKey.gitURL) private var gitURLInSettings: String?
+    @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
+
     private let persistenceController = PersistenceController.shared
+    private let context = AppContext()
+    
 
     var body: some Scene {
         WindowGroup {
 //            DataBaseTableView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            if let gitURLInSettings = gitURLInSettings, let url = URL(string: gitURLInSettings), let repo = Repo(gitURL: url) {
-                WorldMapView(viewModel: WorldMapViewModel(repo: repo))
+            if gitURLInSettings == nil {
+                RepoSetView(viewModel: RepoSetViewModel(context: context))
             } else {
-                RepoSetView(viewModel: RepoSetViewModel())
+                WorldMapView(viewModel: WorldMapViewModel(context: context))
             }
         }
+    }
+}
+
+class AppContext {
+    var world: World?
+    var repo: Repo?
+    
+    func clean() {
+        world = nil
+        repo = nil
     }
 }

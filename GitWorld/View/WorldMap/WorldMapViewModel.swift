@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 class WorldMapViewModel {
-    private let world: World
-    private let repo: Repo
+    private var world: World { context.world! }
+    private var repo: Repo { context.repo! }
     
     @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
     
@@ -18,20 +18,15 @@ class WorldMapViewModel {
         StatsViewModel(repo: repo)
     }
     
-    init(repo: Repo) {
-        self.repo = repo
-        
-        let worldName = repo.localURL.deletingPathExtension().lastPathComponent
-        
-        let analyzer = RepoAnalyzer(localURL: repo.localURL)
-        
-        let worldGenerator = WorldGenerator(name: worldName)
-        self.world = worldGenerator.generate(repoTraits: analyzer.repoTraits)
-        print(world)
+    private var context: AppContext
+    
+    init(context: AppContext) {
+        self.context = context
     }
     
     func logout() {
         repo.deleteRepo()
+        context.clean()
         gitURLInSettings = nil
     }
 }

@@ -49,6 +49,8 @@ class RepoSetViewModel: ObservableObject {
     @Published var toAnalyzeCount = 0
     @Published var isAnalyzing = false
     
+    private let context: AppContext
+    
     var cancelClone = false {
         didSet {
             if cancelClone {
@@ -57,6 +59,10 @@ class RepoSetViewModel: ObservableObject {
         }
     }
     private var cancelObject: RepoCancel?
+    
+    init(context: AppContext) {
+        self.context = context
+    }
     
     func pullNewGit(_ url: String, errorBlock: @escaping (RepoSetViewModel.Error) -> Void) throws {
         guard !url.isEmpty else {
@@ -107,6 +113,9 @@ class RepoSetViewModel: ObservableObject {
                     let worldGenerator = WorldGenerator(name: worldName)
                     let world = await worldGenerator.generate(repoTraits: analyzer.repoTraits)
                     
+                    context.repo = repo
+                    context.world = world
+                    
                     if !cancelObject!.isCancelled {
                         self.gitURLInSettings = url
                     }
@@ -121,7 +130,7 @@ class RepoSetViewModel: ObservableObject {
 
 extension RepoSetViewModel {
     static func stub(cloning: Bool, progress: Float = 0.81, cloned: Int = 81, toClone: Int = 100) -> RepoSetViewModel {
-        let model = RepoSetViewModel()
+        let model = RepoSetViewModel(context: AppContext())
         model.isCloning = cloning
         model.cloneProgress = progress
         model.clonedCount = cloned

@@ -33,6 +33,6 @@ struct WorldMapView: View {
 
 struct WorldMapView_Previews: PreviewProvider {
     static var previews: some View {
-        WorldMapView(viewModel: WorldMapViewModel(repo: .stub))
+        WorldMapView(viewModel: WorldMapViewModel(context: AppContext()))
     }
 }
