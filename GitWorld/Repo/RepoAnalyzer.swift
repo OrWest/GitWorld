@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias RepoAnalyzerProgressBlock = (Int, Int) -> Void
+
 class RepoAnalyzer {
     private let filesURL: [URL]
     
@@ -21,10 +23,10 @@ class RepoAnalyzer {
         self.repoTraits = repoTraits
     }
     
-    func analyze() async {
+    func analyze(progress: @escaping RepoAnalyzerProgressBlock) async {
         return await withCheckedContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {
-                let traits = self.analyzeFiles(urls: self.filesURL)
+                let traits = self.analyzeFiles(urls: self.filesURL, progress: progress)
                 self.repoTraits = traits
                 Logger.log("\(traits)")
                 continuation.resume()
@@ -68,7 +70,14 @@ class RepoAnalyzer {
         }
     }
     
-    private func analyzeFiles(urls: [URL]) -> RepoTraits {
-        return urls.map { FileTraits(url: $0) }.reduce(into: RepoTraits()) { $0.accumulateTraits(traits: $1) }
+    private func analyzeFiles(urls: [URL], progress: RepoAnalyzerProgressBlock) -> RepoTraits {
+        let count = urls.count
+        let repoTraits = RepoTraits()
+        for (i, url) in urls.enumerated() {
+            progress(i, count)
+            let traits = FileTraits(url: url)
+            repoTraits.accumulateTraits(traits: traits)
+        }
+        return repoTraits
     }
 }

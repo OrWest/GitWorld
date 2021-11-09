@@ -11,8 +11,10 @@ import SwiftUI
 struct RepoSetView: View {
     @ObservedObject var viewModel: RepoSetViewModel
         
-    @State var gitURL: String
-    @State var errorToShow: RepoSetViewModel.Error?
+    @State private var gitURL: String
+    @State private var errorToShow: RepoSetViewModel.Error?
+    
+    private var showCancel: Bool { viewModel.cloneProgress != nil || viewModel.analyzeProgress != nil }
     
     init(viewModel: RepoSetViewModel) {
         self.viewModel = viewModel
@@ -39,8 +41,8 @@ struct RepoSetView: View {
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
             
-            Button(action: pullPressed) {
-                if viewModel.isCloning {
+            Button(action: buttonPressed) {
+                if showCancel {
                     Text("Cancel")
                         .padding(buttonPadding)
                 } else {
@@ -56,26 +58,18 @@ struct RepoSetView: View {
             .alert(item: $errorToShow) { error in
                 Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: .cancel())
             }
-            if viewModel.isCloning {
-                RepoCloneView(
-                    cloneProgress: viewModel.cloneProgress,
-                    clonedCount: viewModel.clonedCount,
-                    toCloneCount: viewModel.toCloneCount
-                )
+            if let progress = viewModel.cloneProgress {
+                RepoProgressView(title: "Cloning...", progress: progress)
             }
-            if viewModel.isAnalyzing {
-                RepoAnalyzeView(
-                    progress: viewModel.analyzeProgress,
-                    analyzedCount: viewModel.analyzedCount,
-                    toAnalyzeCount: viewModel.toAnalyzeCount
-                )
+            if let progress = viewModel.analyzeProgress {
+                RepoProgressView(title: "Repo analyzing...", progress: progress)
             }
         }
     }
     
-    private func pullPressed() {
-        if viewModel.isCloning {
-            viewModel.cancelClone = true
+    private func buttonPressed() {
+        if showCancel {
+            viewModel.cancelProcess()
         } else {
             do {
                 try viewModel.pullNewGit(gitURL) { error in

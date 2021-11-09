@@ -14,11 +14,11 @@ struct WorldMapView: View {
         NavigationView {
             Text("Map")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {
-                        Image(systemName: "gearshape")
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {
+//                        Image(systemName: "gearshape")
+//                    }
+//                }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         viewModel.logout()

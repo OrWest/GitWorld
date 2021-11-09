@@ -36,8 +36,7 @@
 		977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BA2736836800CF5303 /* VillageColorDistributor.swift */; };
 		977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BD2736B76200CF5303 /* WorldMapView.swift */; };
 		977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */; };
-		F26CCC1E273923C0001813DC /* RepoCloneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26CCC1D273923C0001813DC /* RepoCloneView.swift */; };
-		F26CCC2227392FAF001813DC /* RepoAnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26CCC2127392FAF001813DC /* RepoAnalyzeView.swift */; };
+		F26CCC1E273923C0001813DC /* RepoProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26CCC1D273923C0001813DC /* RepoProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,8 +84,7 @@
 		977298BA2736836800CF5303 /* VillageColorDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageColorDistributor.swift; sourceTree = "<group>"; };
 		977298BD2736B76200CF5303 /* WorldMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapView.swift; sourceTree = "<group>"; };
 		977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapViewModel.swift; sourceTree = "<group>"; };
-		F26CCC1D273923C0001813DC /* RepoCloneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCloneView.swift; sourceTree = "<group>"; };
-		F26CCC2127392FAF001813DC /* RepoAnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAnalyzeView.swift; sourceTree = "<group>"; };
+		F26CCC1D273923C0001813DC /* RepoProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,8 +202,7 @@
 			children = (
 				975D6693272FED1200D7F6C9 /* RepoSetView.swift */,
 				975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */,
-				F26CCC1D273923C0001813DC /* RepoCloneView.swift */,
-				F26CCC2127392FAF001813DC /* RepoAnalyzeView.swift */,
+				F26CCC1D273923C0001813DC /* RepoProgressView.swift */,
 			);
 			path = RepoSet;
 			sourceTree = "<group>";
@@ -345,7 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F26CCC1E273923C0001813DC /* RepoCloneView.swift in Sources */,
+				F26CCC1E273923C0001813DC /* RepoProgressView.swift in Sources */,
 				975D6683272E95D100D7F6C9 /* RepoTraits.swift in Sources */,
 				975D6688272E95D100D7F6C9 /* Repo.swift in Sources */,
 				977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */,
@@ -359,7 +356,6 @@
 				975D6685272E95D100D7F6C9 /* ReadStream.swift in Sources */,
 				975D6686272E95D100D7F6C9 /* RepoAnalyzer.swift in Sources */,
 				975D6666272E939600D7F6C9 /* GitWorld.xcdatamodeld in Sources */,
-				F26CCC2227392FAF001813DC /* RepoAnalyzeView.swift in Sources */,
 				977298AC27367EAD00CF5303 /* House.swift in Sources */,
 				975D6678272E95C500D7F6C9 /* StatsView.swift in Sources */,
 				975D665C272E939300D7F6C9 /* DataBaseTableView.swift in Sources */,

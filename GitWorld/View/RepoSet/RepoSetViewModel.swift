@@ -9,6 +9,18 @@ import Foundation
 import SwiftUI
 
 class RepoSetViewModel: ObservableObject {
+    class Progress: ObservableObject {
+        @Published var madeCount: Int
+        @Published var amount: Int
+        @Published var progress: Float
+        
+        init(progress: Float = 0, madeCount: Int = 0, amount: Int = 0) {
+            self.progress = progress
+            self.madeCount = madeCount
+            self.amount = amount
+        }
+    }
+    
     enum Error: LocalizedError, Identifiable {
         var id: String {
             switch self {
@@ -39,29 +51,19 @@ class RepoSetViewModel: ObservableObject {
     }
     
     @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
-    @Published var cloneProgress: Float = 0
-    @Published var clonedCount = 0
-    @Published var toCloneCount = 0
-    @Published var isCloning = false
-    
-    @Published var analyzeProgress: Float = 0
-    @Published var analyzedCount = 0
-    @Published var toAnalyzeCount = 0
-    @Published var isAnalyzing = false
+    @Published var cloneProgress: Progress?
+    @Published var analyzeProgress: Progress?
+    @Published var isGeneratingWorld = false
     
     private let context: AppContext
-    
-    var cancelClone = false {
-        didSet {
-            if cancelClone {
-                cancelObject?.cancel()
-            }
-        }
-    }
     private var cancelObject: RepoCancel?
     
     init(context: AppContext) {
         self.context = context
+    }
+    
+    func cancelProcess() {
+        cancelObject?.cancel()
     }
     
     func pullNewGit(_ url: String, errorBlock: @escaping (RepoSetViewModel.Error) -> Void) throws {
@@ -84,34 +86,59 @@ class RepoSetViewModel: ObservableObject {
             gitURLInSettings = url
         } else {
             
-            isCloning = true
+            let cloneProgress = Progress()
+            self.cloneProgress = cloneProgress
             Task.init {
-                self.cancelObject = RepoCancel()
                 defer {
+                    cancelObject = nil
                     DispatchQueue.main.async {
-                        self.isCloning = false
-                        self.cancelClone = false
-                        self.cancelObject = nil
-                        self.cloneProgress = 0
-                        self.clonedCount = 0
-                        self.toCloneCount = 0
+                        self.cloneProgress = nil
+                        self.analyzeProgress = nil
+                        self.isGeneratingWorld = false
                     }
                 }
+                
+                self.cancelObject = RepoCancel()
                 do {
-                    try await repo.cloneRepo(repoCancel: cancelObject!) { progress, cloned, toClone in
+                    try await repo.cloneRepo(repoCancel: cancelObject!) { cloned, toClone in
                         DispatchQueue.main.async {
-                            self.cloneProgress = progress
-                            self.clonedCount = cloned
-                            self.toCloneCount = toClone                            
+                            cloneProgress.progress = Float(cloned)/Float(toClone)
+                            cloneProgress.amount = toClone
+                            cloneProgress.madeCount = cloned
                         }
                     }
                     
+                    let analyzeProgress = Progress()
+                    DispatchQueue.main.async {
+                        self.cloneProgress = nil
+                        self.analyzeProgress = analyzeProgress
+                    }
+                    
+                    guard !cancelObject!.isCancelled else { return }
+                    
                     let analyzer = RepoAnalyzer(localURL: repo.localURL)
-                    await analyzer.analyze()
+                    await analyzer.analyze { progress, count in
+                        DispatchQueue.main.async {
+                            analyzeProgress.progress = Float(progress)/Float(count)
+                            analyzeProgress.amount = count
+                            analyzeProgress.madeCount = progress
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.analyzeProgress = analyzeProgress
+                        self.isGeneratingWorld = true
+                    }
+                    
+                    guard !cancelObject!.isCancelled else { return }
                     
                     let worldName = repo.localURL.deletingPathExtension().lastPathComponent
                     let worldGenerator = WorldGenerator(name: worldName)
                     let world = await worldGenerator.generate(repoTraits: analyzer.repoTraits)
+                    
+                    DispatchQueue.main.async {
+                        self.isGeneratingWorld = false
+                    }
                     
                     context.repo = repo
                     context.world = world
@@ -131,10 +158,7 @@ class RepoSetViewModel: ObservableObject {
 extension RepoSetViewModel {
     static func stub(cloning: Bool, progress: Float = 0.81, cloned: Int = 81, toClone: Int = 100) -> RepoSetViewModel {
         let model = RepoSetViewModel(context: AppContext())
-        model.isCloning = cloning
-        model.cloneProgress = progress
-        model.clonedCount = cloned
-        model.toCloneCount = toClone
+        model.cloneProgress = Progress(progress: progress, madeCount: cloned, amount: toClone)
         return model
     }
 }

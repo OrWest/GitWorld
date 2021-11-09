@@ -70,7 +70,7 @@ class Repo {
         }
     }
     
-    func cloneRepo(repoCancel: RepoCancel, progressBlock: @escaping (Float, Int, Int) -> Void) async throws {
+    func cloneRepo(repoCancel: RepoCancel, progressBlock: @escaping (Int, Int) -> Void) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {
                 
@@ -83,8 +83,7 @@ class Repo {
                         }
                         
                         let progress = progressPointer.pointee
-                        let progressValue = Float(progress.received_objects)/Float(progress.total_objects)
-                        progressBlock(progressValue, Int(progress.received_objects), Int(progress.total_objects))
+                        progressBlock(Int(progress.received_objects), Int(progress.total_objects))
                         Logger.log("Clone progress: \(progress.received_objects)/\(progress.total_objects)")
                     }
                     self.cloned = true
