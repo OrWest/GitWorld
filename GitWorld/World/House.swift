@@ -7,7 +7,7 @@
 
 import Foundation
 
-class House {
+class House: Codable {
     let name: String
     let size: Int
     

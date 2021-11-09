@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Village {
+class Village: Codable {
     let name: String
     let color: VillageColor
     

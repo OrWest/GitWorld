@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct GitWorldApp: App {
-    @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
+    @AppStorage(AppStorageKey.gitURL) private var gitURLInSettings: String?
 
     private let persistenceController = PersistenceController.shared
     private let context = AppContext()
@@ -29,8 +29,19 @@ struct GitWorldApp: App {
 }
 
 class AppContext {
-    var world: World?
-    var repo: Repo?
+    @AppStorage(AppStorageKey.world) private var worldData: Data?
+    @AppStorage(AppStorageKey.gitURL) private var gitURLInSettings: String?
+
+    lazy var world: World? = worldData.map { try! JSONDecoder().decode(World.self, from: $0) } {
+        didSet {
+            if let world = world {
+                worldData = try! JSONEncoder().encode(world)
+            } else {
+                worldData = nil
+            }
+        }
+    }
+    lazy var repo: Repo? = gitURLInSettings.map { Repo(gitURL: URL(string: $0)!)! }
     
     func clean() {
         world = nil

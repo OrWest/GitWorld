@@ -144,7 +144,9 @@ class RepoSetViewModel: ObservableObject {
                     context.world = world
                     
                     if !cancelObject!.isCancelled {
-                        self.gitURLInSettings = url
+                        DispatchQueue.main.async {
+                            self.gitURLInSettings = url                            
+                        }
                     }
                 } catch {
                     errorBlock(Error.cloneError(error))

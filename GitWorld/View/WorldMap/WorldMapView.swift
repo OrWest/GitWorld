@@ -12,7 +12,7 @@ struct WorldMapView: View {
     
     var body: some View {
         NavigationView {
-            Text("Map")
+            Text("Map \(viewModel.title)")
             .toolbar {
 //                ToolbarItem(placement: .navigationBarTrailing) {
 //                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {

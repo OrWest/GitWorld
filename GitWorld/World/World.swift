@@ -7,7 +7,7 @@
 
 import Foundation
 
-class World {
+class World: Codable {
     let name: String
     var villages: [Village] = []
     

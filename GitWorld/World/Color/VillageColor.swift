@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct VillageColor: Identifiable {
+struct VillageColor: Identifiable, Codable {
     var id: Int {
         return Int(r)<<16 | Int(g) << 8 | Int(b)
     }

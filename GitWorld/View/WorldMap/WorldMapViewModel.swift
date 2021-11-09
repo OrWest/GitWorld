@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class WorldMapViewModel {
+class WorldMapViewModel: ObservableObject {
     private var world: World { context.world! }
     private var repo: Repo { context.repo! }
     
@@ -19,6 +19,8 @@ class WorldMapViewModel {
     }
     
     private var context: AppContext
+    
+    var title: String { world.name }
     
     init(context: AppContext) {
         self.context = context
