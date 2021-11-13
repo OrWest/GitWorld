@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9716D8F9273FDD8E0069190B /* WorldMapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9716D8F8273FDD8E0069190B /* WorldMapScene.swift */; };
 		9741706727316C96008FD6C3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9741706627316C96008FD6C3 /* Logger.swift */; };
 		975D665A272E939300D7F6C9 /* GitWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6659272E939300D7F6C9 /* GitWorldApp.swift */; };
 		975D665C272E939300D7F6C9 /* DataBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D665B272E939300D7F6C9 /* DataBaseTableView.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9716D8F8273FDD8E0069190B /* WorldMapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapScene.swift; sourceTree = "<group>"; };
 		9741706627316C96008FD6C3 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		975D6656272E939300D7F6C9 /* GitWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		975D6659272E939300D7F6C9 /* GitWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitWorldApp.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				977298BD2736B76200CF5303 /* WorldMapView.swift */,
 				977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */,
+				9716D8F8273FDD8E0069190B /* WorldMapScene.swift */,
 			);
 			path = WorldMap;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				977298B82736830C00CF5303 /* VillageColor.swift in Sources */,
 				975D6689272E95D100D7F6C9 /* Sequance+safe.swift in Sources */,
 				9741706727316C96008FD6C3 /* Logger.swift in Sources */,
+				9716D8F9273FDD8E0069190B /* WorldMapScene.swift in Sources */,
 				975D6687272E95D100D7F6C9 /* FileTraits.swift in Sources */,
 				977298B62736816E00CF5303 /* WorldBuilder.swift in Sources */,
 				975D6694272FED1200D7F6C9 /* RepoSetView.swift in Sources */,
