@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 class WorldMapViewModel: ObservableObject {
-    private var world: World { context.world! }
-    private var repo: Repo { context.repo! }
+    private var world: World { context.world }
+    private var repo: Repo { context.repo }
     
     @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
     
-    var statsViewModel: StatsViewModel {
-        StatsViewModel(repo: repo)
+    var statsViewModel: RepoStatsViewModel {
+        RepoStatsViewModel(context: context)
     }
     
     private var context: AppContext
@@ -27,7 +27,7 @@ class WorldMapViewModel: ObservableObject {
     }
     
     func logout() {
-        repo.deleteRepo()
+        repo.deleteRepoIfExist()
         context.clean()
         gitURLInSettings = nil
     }

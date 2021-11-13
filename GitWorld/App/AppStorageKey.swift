@@ -10,4 +10,5 @@ import Foundation
 enum AppStorageKey {
     static let gitURL = "gitURL"
     static let world = "world"
+    static let analyzer = "analyzer"
 }

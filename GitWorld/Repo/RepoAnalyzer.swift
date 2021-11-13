@@ -9,7 +9,7 @@ import Foundation
 
 typealias RepoAnalyzerProgressBlock = (Int, Int) -> Void
 
-class RepoAnalyzer {
+class RepoAnalyzer: Codable {
     private let filesURL: [URL]
     
     private(set) var repoTraits = RepoTraits()

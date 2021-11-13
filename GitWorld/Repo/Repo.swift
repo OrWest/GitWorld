@@ -74,6 +74,8 @@ class Repo {
         return try await withCheckedThrowingContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {
                 
+                self.deleteRepoIfExist()
+                
                 do {
                     Logger.log("[REPO] Clone \(self.gitURL.relativePath)")
                     self.repo = try GTRepository.clone(from: self.gitURL, toWorkingDirectory: self.localURL, options: nil) { progressPointer, stop in
@@ -103,7 +105,12 @@ class Repo {
         
     }
     
-    func deleteRepo() {
+    func deleteRepoIfExist() {
+        guard fileManager.fileExists(atPath: localURL.absoluteString) else {
+            Logger.log("[Repo] No folder with such name (\(localURL.deletingPathExtension().lastPathComponent)). Ignore.")
+            return
+        }
+        
         Logger.log("[Repo] Delete local repo: \(localURL)")
         do {
             try fileManager.removeItem(at: localURL)

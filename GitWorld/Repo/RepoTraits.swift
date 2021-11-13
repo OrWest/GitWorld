@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RepoFile {
+struct RepoFile: Codable {
     let name: String
     let linesCount: Int
     
@@ -17,7 +17,7 @@ struct RepoFile {
     }
 }
 
-class RepoTraits: CustomStringConvertible {
+class RepoTraits: CustomStringConvertible, Codable {
     private(set) var containsReadMe: Bool = false
     private(set) var containsTravis: Bool = false
     private(set) var containsGitignore: Bool = false

@@ -1,5 +1,5 @@
 //
-//  StatsViewModel.swift
+//  RepoStatsViewModel.swift
 //  GitWorld
 //
 //  Created by Aleksandr Motarykin on 30.10.21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StatsViewModel {
+class RepoStatsViewModel {
     struct Row {
         let text: String
         let imageName: String?
@@ -16,26 +16,11 @@ class StatsViewModel {
     
     var rows: [Row] = []
     
-    init(traits: RepoTraits) {
-        rows = generateRows(repoTraits: traits)
-    }
+    private let context: AppContext
     
-    init(repo: Repo) {
-//        if !repo.cloned {
-//            do {
-//                try repo.cloneRepo()
-//            } catch {
-//                Logger.log("[StatsViewModel] Clone failed. Pending state.")
-//                return
-//            }
-//        }
-//        
-//        let analyzer = RepoAnalyzer(localURL: repo.localURL)
-//        rows = generateRows(repoTraits: analyzer.repoTraits)
-//        
-//        let worldGenerator = WorldGenerator(name: repo.localURL.deletingPathExtension().lastPathComponent)
-//        let world = worldGenerator.generate(repoTraits: analyzer.repoTraits)
-//        print(world)
+    init(context: AppContext) {
+        self.context = context
+        rows = generateRows(repoTraits: context.analyzer.repoTraits)
     }
     
     private func generateRows(repoTraits: RepoTraits) -> [Row] {

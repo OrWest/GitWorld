@@ -29,11 +29,11 @@ struct WorldMapView: View {
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 .ignoresSafeArea()
             .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {
-//                        Image(systemName: "gearshape")
-//                    }
-//                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {
+                        Image(systemName: "gearshape")
+                    }
+                }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         viewModel.logout()
@@ -48,6 +48,6 @@ struct WorldMapView: View {
 
 struct WorldMapView_Previews: PreviewProvider {
     static var previews: some View {
-        WorldMapView(viewModel: WorldMapViewModel(context: AppContext()))
+        WorldMapView(viewModel: WorldMapViewModel(context: .stub))
     }
 }

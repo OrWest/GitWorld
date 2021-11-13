@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StatsView: View {
-    let viewModel: StatsViewModel
+    let viewModel: RepoStatsViewModel
     
     var body: some View {
         List(viewModel.rows, id: \.text) { StatRow(row: $0) }
@@ -17,6 +17,6 @@ struct StatsView: View {
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatsView(viewModel: StatsViewModel(traits: .stub))
+        StatsView(viewModel: RepoStatsViewModel(context: .stub))
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StatRow: View {
-    var row: StatsViewModel.Row
+    var row: RepoStatsViewModel.Row
     
     var body: some View {
         HStack {
@@ -32,9 +32,9 @@ struct StatRow: View {
 struct StatRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            StatRow(row: StatsViewModel.Row(text: "Swift", imageName: "readme_icon", rightText: nil))
+            StatRow(row: RepoStatsViewModel.Row(text: "Swift", imageName: "readme_icon", rightText: nil))
                 .previewLayout(.fixed(width: 300, height: 70))
-            StatRow(row: StatsViewModel.Row(text: "File name", imageName: nil, rightText: "11398"))
+            StatRow(row: RepoStatsViewModel.Row(text: "File name", imageName: nil, rightText: "11398"))
                 .previewLayout(.fixed(width: 300, height: 70))
         }
     }

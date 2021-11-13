@@ -17,7 +17,7 @@
 		975D6666272E939600D7F6C9 /* GitWorld.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 975D6664272E939600D7F6C9 /* GitWorld.xcdatamodeld */; };
 		975D6677272E95C500D7F6C9 /* StatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6674272E95C500D7F6C9 /* StatRow.swift */; };
 		975D6678272E95C500D7F6C9 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6675272E95C500D7F6C9 /* StatsView.swift */; };
-		975D6679272E95C500D7F6C9 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6676272E95C500D7F6C9 /* StatsViewModel.swift */; };
+		975D6679272E95C500D7F6C9 /* RepoStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6676272E95C500D7F6C9 /* RepoStatsViewModel.swift */; };
 		975D6683272E95D100D7F6C9 /* RepoTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D667B272E95D100D7F6C9 /* RepoTraits.swift */; };
 		975D6684272E95D100D7F6C9 /* RepoIgnore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D667C272E95D100D7F6C9 /* RepoIgnore.swift */; };
 		975D6685272E95D100D7F6C9 /* ReadStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D667D272E95D100D7F6C9 /* ReadStream.swift */; };
@@ -65,7 +65,7 @@
 		975D6665272E939600D7F6C9 /* GitWorld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GitWorld.xcdatamodel; sourceTree = "<group>"; };
 		975D6674272E95C500D7F6C9 /* StatRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatRow.swift; sourceTree = "<group>"; };
 		975D6675272E95C500D7F6C9 /* StatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
-		975D6676272E95C500D7F6C9 /* StatsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		975D6676272E95C500D7F6C9 /* RepoStatsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoStatsViewModel.swift; sourceTree = "<group>"; };
 		975D667B272E95D100D7F6C9 /* RepoTraits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTraits.swift; sourceTree = "<group>"; };
 		975D667C272E95D100D7F6C9 /* RepoIgnore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoIgnore.swift; sourceTree = "<group>"; };
 		975D667D272E95D100D7F6C9 /* ReadStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStream.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			children = (
 				975D6674272E95C500D7F6C9 /* StatRow.swift */,
 				975D6675272E95C500D7F6C9 /* StatsView.swift */,
-				975D6676272E95C500D7F6C9 /* StatsViewModel.swift */,
+				975D6676272E95C500D7F6C9 /* RepoStatsViewModel.swift */,
 			);
 			path = RepoStats;
 			sourceTree = "<group>";
@@ -350,7 +350,7 @@
 				975D6688272E95D100D7F6C9 /* Repo.swift in Sources */,
 				977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */,
 				975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */,
-				975D6679272E95C500D7F6C9 /* StatsViewModel.swift in Sources */,
+				975D6679272E95C500D7F6C9 /* RepoStatsViewModel.swift in Sources */,
 				977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */,
 				977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */,
 				977298B027367F4400CF5303 /* Village.swift in Sources */,
