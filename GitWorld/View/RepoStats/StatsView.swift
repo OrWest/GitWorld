@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct StatsView: View {
-    let viewModel: RepoStatsViewModel
+    let viewModel: StatsViewModel
     
     var body: some View {
-        List(viewModel.rows, id: \.text) { StatRow(row: $0) }
+        List(viewModel.rows, id: \.text) { StatRowView(row: $0) }
     }
 }
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatsView(viewModel: RepoStatsViewModel(context: .stub))
+        StatsView(viewModel: RepoStatsViewModel(analyzer: AppContext.stub.analyzer))
     }
 }

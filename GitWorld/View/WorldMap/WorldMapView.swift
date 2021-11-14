@@ -30,7 +30,7 @@ struct WorldMapView: View {
                 .ignoresSafeArea()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: StatsView(viewModel: viewModel.statsViewModel)) {
+                    NavigationLink(destination: DebugView(context: viewModel.context)) {
                         Image(systemName: "gearshape")
                     }
                 }

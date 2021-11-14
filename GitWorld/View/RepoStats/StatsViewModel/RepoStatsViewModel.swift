@@ -7,20 +7,20 @@
 
 import Foundation
 
-class RepoStatsViewModel {
-    struct Row {
+class RepoStatsViewModel: StatsViewModel {
+    struct Row: StatRow {
         let text: String
         let imageName: String?
         let rightText: String?
     }
     
-    var rows: [Row] = []
+    var rows: [StatRow] = []
     
-    private let context: AppContext
+    private let analyzer: RepoAnalyzer
     
-    init(context: AppContext) {
-        self.context = context
-        rows = generateRows(repoTraits: context.analyzer.repoTraits)
+    init(analyzer: RepoAnalyzer) {
+        self.analyzer = analyzer
+        rows = generateRows(repoTraits: analyzer.repoTraits)
     }
     
     private func generateRows(repoTraits: RepoTraits) -> [Row] {

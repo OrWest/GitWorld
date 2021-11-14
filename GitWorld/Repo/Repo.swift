@@ -70,6 +70,13 @@ class Repo {
         }
     }
     
+    init(url: URL, fileManager: FileManager = FileManager.default) {
+        self.fileManager = fileManager
+        self.gitURL = url
+        self.localURL = url
+        self.cloned = true
+    }
+    
     func cloneRepo(repoCancel: RepoCancel, progressBlock: @escaping (Int, Int) -> Void) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {

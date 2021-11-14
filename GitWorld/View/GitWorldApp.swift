@@ -12,7 +12,7 @@ struct GitWorldApp: App {
     @AppStorage(AppStorageKey.gitURL) private var gitURLInSettings: String?
 
     private let persistenceController = PersistenceController.shared
-    @State private var context: AppContext?
+    @State private var context: AppContext? = AppContext()
     
 
     var body: some Scene {
@@ -38,23 +38,27 @@ class AppContext {
     private(set) var analyzer: RepoAnalyzer!
     
     init?() {
-        guard let repo = gitURLInSettings.map({ Repo(gitURL: URL(string: $0)!)! }),
-              let world = worldData.map ({ try! JSONDecoder().decode(World.self, from: $0) }),
-              let analyzer = analyzerData.map ({ try! JSONDecoder().decode(RepoAnalyzer.self, from: $0) }) else { return nil }
+        guard let urlString = gitURLInSettings,
+                let url = URL(string: urlString),
+                let repo = Repo(gitURL: url),
+                let world = worldData.map ({ try! JSONDecoder().decode(World.self, from: $0) }),
+                let analyzer = analyzerData.map ({ try! JSONDecoder().decode(RepoAnalyzer.self, from: $0) }) else { return nil }
         
         self.repo = repo
         self.world = world
         self.analyzer = analyzer
     }
     
-    init(repo: Repo, world: World, analyzer: RepoAnalyzer) {
+    init(repo: Repo, world: World, analyzer: RepoAnalyzer, localOnly: Bool = false) {
         self.repo = repo
         self.world = world
         self.analyzer = analyzer
         
-        // Save to reuse it from UD
-        worldData = try! JSONEncoder().encode(world)
-        analyzerData = try! JSONEncoder().encode(analyzer)
+        if !localOnly {
+            // Save to reuse it from UD
+            worldData = try! JSONEncoder().encode(world)
+            analyzerData = try! JSONEncoder().encode(analyzer)
+        }
     }
     
     func clean() {
@@ -63,5 +67,5 @@ class AppContext {
 }
 
 extension AppContext {
-    static let stub = AppContext(repo: Repo(gitURL: URL(string: "https://google.com")!)!, world: World(name: "WORLD nAmE"), analyzer: RepoAnalyzer(repoTraits: .stub))
+    static let stub = AppContext(repo: Repo(url: URL(string: "https://google.com/")!), world: World(name: "WORLD nAmE"), analyzer: RepoAnalyzer(repoTraits: .stub), localOnly: true)
 }

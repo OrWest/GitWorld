@@ -14,11 +14,7 @@ class WorldMapViewModel: ObservableObject {
     
     @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
     
-    var statsViewModel: RepoStatsViewModel {
-        RepoStatsViewModel(context: context)
-    }
-    
-    private var context: AppContext
+    let context: AppContext
     
     var title: String { world.name }
     
