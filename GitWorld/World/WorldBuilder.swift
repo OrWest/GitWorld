@@ -29,7 +29,7 @@ class WorldBuilder {
     
     @discardableResult
     func addHous(file: RepoFile) -> Self {
-        currentVillage?.houses.append(House(name: file.name, size: file.linesCount))
+        currentVillage?.houses.append(House(id: file.relativePath, name: file.name, size: file.linesCount))
         
         return self
     }

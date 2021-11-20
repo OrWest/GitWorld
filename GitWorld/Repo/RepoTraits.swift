@@ -9,11 +9,13 @@ import Foundation
 
 struct RepoFile: Codable {
     let name: String
+    let relativePath: String
     let linesCount: Int
     
     init(traits: FileTraits) {
         self.name = traits.fileName
         self.linesCount = traits.lineCount
+        self.relativePath = traits.relativePath
     }
 }
 
@@ -51,7 +53,7 @@ class RepoTraits: CustomStringConvertible, Codable {
         Repo traits:
         \(repoTraitsString())
         General files:
-        \(generalFiles.map { " \($0.name):\($0.linesCount)" }.joined(separator: "\n"))
+        \(generalFiles.map { " \($0.relativePath):\($0.linesCount)" }.joined(separator: "\n"))
         """
     }
     

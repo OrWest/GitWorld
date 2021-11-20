@@ -8,10 +8,12 @@
 import Foundation
 
 class House: Codable {
+    let id: String
     let name: String
     let size: Int
     
-    init(name: String, size: Int) {
+    init(id: String, name: String, size: Int) {
+        self.id = id
         self.name = name
         self.size = size
     }

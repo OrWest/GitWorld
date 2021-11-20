@@ -22,8 +22,10 @@ class FileTraits {
     private(set) var type: FileType = .general
     let lineCount: Int
     let fileName: String
+    let relativePath: String
     
     init(url: URL) {
+        relativePath = url.relativePath
         fileName = url.lastPathComponent
         lineCount = ReadStream(url: url).reduce(0) { counter, _ in return counter + 1 }
         
@@ -45,8 +47,9 @@ class FileTraits {
         }
     }
     
-    init(fileName: String, linesCount: Int) {
+    init(fileName: String, linesCount: Int, relativePath: String? = nil) {
         self.fileName = fileName
         self.lineCount = linesCount
+        self.relativePath = relativePath.map { $0 } ?? fileName
     }
 }

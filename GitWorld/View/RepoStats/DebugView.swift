@@ -40,7 +40,7 @@ struct DebugView: View {
                 case .analyzer:
                     StatsView(viewModel: RepoStatsViewModel(analyzer: context.analyzer))
                 case .world:
-                    StatsView(viewModel: WorldStatsViewModel(world: context.world))
+                    WorldStatsView(viewModel: WorldStatsViewModel(world: context.world))
             }
         }
         .navigationBarTitleDisplayMode(.inline)

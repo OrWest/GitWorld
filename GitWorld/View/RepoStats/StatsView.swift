@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct StatsView: View {
-    let viewModel: StatsViewModel
+    let viewModel: RepoStatsViewModel
     
     var body: some View {
-        List(viewModel.rows, id: \.text) { StatRowView(row: $0) }
+        List(viewModel.rows) { StatRowView(row: $0) }
     }
 }
 

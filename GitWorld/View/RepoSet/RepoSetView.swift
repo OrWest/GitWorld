@@ -40,6 +40,7 @@ struct RepoSetView: View {
                 .padding()
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+                .disabled(showCancel)
             
             Button(action: buttonPressed) {
                 if showCancel {

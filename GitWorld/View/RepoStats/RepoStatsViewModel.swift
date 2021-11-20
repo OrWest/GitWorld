@@ -7,14 +7,24 @@
 
 import Foundation
 
-class RepoStatsViewModel: StatsViewModel {
-    struct Row: StatRow {
+class RepoStatsViewModel {
+    struct Row: Identifiable, StatRow {
+        let id: String
         let text: String
         let imageName: String?
         let rightText: String?
+        let subTitle: String?
+        
+        init(id: String? = nil, text: String, imageName: String?, rightText: String?, subTitle: String? = nil) {
+            self.id = id ?? text
+            self.text = text
+            self.imageName = imageName
+            self.rightText = rightText
+            self.subTitle = subTitle
+        }
     }
     
-    var rows: [StatRow] = []
+    var rows: [Row] = []
     
     private let analyzer: RepoAnalyzer
     
@@ -43,7 +53,7 @@ class RepoStatsViewModel: StatsViewModel {
         }
         
         for file in repoTraits.generalFiles {
-            rows.append(Row(text: file.name, imageName: nil, rightText: String(file.linesCount)))
+            rows.append(Row(id: file.relativePath, text: file.name, imageName: nil, rightText: file.linesCount > 0 ? String(file.linesCount) : nil, subTitle: file.relativePath))
         }
         
         return rows

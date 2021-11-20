@@ -113,7 +113,7 @@ class Repo {
     }
     
     func deleteRepoIfExist() {
-        guard fileManager.fileExists(atPath: localURL.absoluteString) else {
+        guard fileManager.fileExists(atPath: localURL.absoluteURL.relativePath) else {
             Logger.log("[Repo] No folder with such name (\(localURL.deletingPathExtension().lastPathComponent)). Ignore.")
             return
         }

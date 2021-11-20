@@ -12,7 +12,14 @@ struct StatRowView: View {
     
     var body: some View {
         HStack {
-            Text(row.text)
+            VStack(alignment: .leading) {
+                Text(row.text)
+                if let subTitle = row.subTitle {
+                    Text(subTitle)
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+            }
             Spacer()
             if let rightText = row.rightText {
                 Text(rightText)

@@ -15,7 +15,7 @@ class RepoAnalyzer: Codable {
     private(set) var repoTraits = RepoTraits()
     
     init(localURL: URL, fileManager: FileManager = FileManager.default) {
-        self.filesURL = RepoAnalyzer.getFilesPathsToAnalyze(fileManager: fileManager, localURL: localURL)
+        self.filesURL = RepoAnalyzer.getFilesPathsToAnalyze(fileManager: fileManager, localURL: localURL, baseURL: localURL)
     }
     
     init(repoTraits: RepoTraits) {
@@ -34,9 +34,9 @@ class RepoAnalyzer: Codable {
         }
     }
     
-    private static func getFilesPathsToAnalyze(fileManager: FileManager, localURL: URL) -> [URL] {
+    private static func getFilesPathsToAnalyze(fileManager: FileManager, localURL: URL, baseURL: URL) -> [URL] {
         do {
-            let urls = try fileManager.contentsOfDirectory(at: localURL, includingPropertiesForKeys: nil, options: [])
+            let urls = try fileManager.contentsOfDirectory(at: localURL, includingPropertiesForKeys: nil, options: [.producesRelativePathURLs])
             
             var filesURL: [URL] = []
             for url in urls {
@@ -51,11 +51,17 @@ class RepoAnalyzer: Codable {
                     
                     if isDir {
                         Logger.log("[Analyzer] \(url.relativePath) is dir. Go inside.")
-                        let urlsInDir = getFilesPathsToAnalyze(fileManager: fileManager, localURL: url)
+                        let urlsInDir = getFilesPathsToAnalyze(fileManager: fileManager, localURL: url, baseURL: baseURL)
                         filesURL.append(contentsOf: urlsInDir)
                     } else {
                         Logger.log("[Analyzer] File \(url.relativePath) is added.")
-                        filesURL.append(url)
+                        
+                        var relativeURL = url
+                        if let range = url.absoluteString.range(of: baseURL.relativePath) {
+                            let relativePath = url.absoluteString[range.upperBound...]
+                            relativeURL = URL(fileURLWithPath: String(relativePath), relativeTo: baseURL)
+                        }
+                        filesURL.append(relativeURL)
                     }
                 } catch {
                     Logger.log("[Analyzer] Can't get resource properties from \(url.lastPathComponent): \(error)")
