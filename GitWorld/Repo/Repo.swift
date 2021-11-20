@@ -48,12 +48,7 @@ class Repo {
             folderName = lastComponent
         }
         
-        guard let localURL = URL(string: folderName, relativeTo: rootURL) else {
-            Logger.log("[REPO] Can't create local folder in documents")
-            return nil
-        }
-        
-        self.localURL = localURL
+        self.localURL = rootURL.appendingPathComponent(folderName)
         
         do {
             repo = try GTRepository.init(url: localURL)
