@@ -9,7 +9,8 @@ import Foundation
 
 class RepoIgnore {
     let ignoreFolder: [String] = [
-        ".git"
+        ".git",
+        ".DS_Store"
     ]
     
     func shouldIgnore(fileName: String, isDir: Bool) -> Bool {

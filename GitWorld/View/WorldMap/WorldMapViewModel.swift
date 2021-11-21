@@ -15,11 +15,15 @@ class WorldMapViewModel: ObservableObject {
     @AppStorage(AppStorageKey.gitURL) var gitURLInSettings: String?
     
     let context: AppContext
+    let worldMap: WorldMap
     
     var title: String { world.name }
     
     init(context: AppContext) {
         self.context = context
+        
+        self.worldMap = WorldMap(world: context.world)
+        print()
     }
     
     func logout() {

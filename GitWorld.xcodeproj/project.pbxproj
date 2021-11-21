@@ -32,6 +32,10 @@
 		975D6696272FF0A000D7F6C9 /* RepoSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */; };
 		975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975D6699272FFBD900D7F6C9 /* AppStorageKey.swift */; };
 		9765E4F427492485000C8947 /* StatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9765E4F327492485000C8947 /* StatRow.swift */; };
+		9765E4F6274A421B000C8947 /* WorldMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9765E4F5274A421B000C8947 /* WorldMap.swift */; };
+		9765E4FA274A44CA000C8947 /* WorldMapVillage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9765E4F9274A44CA000C8947 /* WorldMapVillage.swift */; };
+		9765E4FC274A475C000C8947 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9765E4FB274A475C000C8947 /* Coordinates.swift */; };
+		9765E4FE274A5030000C8947 /* WorldMapHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9765E4FD274A5030000C8947 /* WorldMapHouse.swift */; };
 		977298AC27367EAD00CF5303 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298AB27367EAD00CF5303 /* House.swift */; };
 		977298B027367F4400CF5303 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298AF27367F4400CF5303 /* Village.swift */; };
 		977298B22736806A00CF5303 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298B12736806A00CF5303 /* World.swift */; };
@@ -85,6 +89,10 @@
 		975D6695272FF0A000D7F6C9 /* RepoSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSetViewModel.swift; sourceTree = "<group>"; };
 		975D6699272FFBD900D7F6C9 /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		9765E4F327492485000C8947 /* StatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRow.swift; sourceTree = "<group>"; };
+		9765E4F5274A421B000C8947 /* WorldMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMap.swift; sourceTree = "<group>"; };
+		9765E4F9274A44CA000C8947 /* WorldMapVillage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapVillage.swift; sourceTree = "<group>"; };
+		9765E4FB274A475C000C8947 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		9765E4FD274A5030000C8947 /* WorldMapHouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapHouse.swift; sourceTree = "<group>"; };
 		977298AB27367EAD00CF5303 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		977298AF27367F4400CF5303 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
 		977298B12736806A00CF5303 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
@@ -231,9 +239,21 @@
 			path = RepoStats;
 			sourceTree = "<group>";
 		};
+		9765E4F8274A4360000C8947 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9765E4F5274A421B000C8947 /* WorldMap.swift */,
+				9765E4F9274A44CA000C8947 /* WorldMapVillage.swift */,
+				9765E4FB274A475C000C8947 /* Coordinates.swift */,
+				9765E4FD274A5030000C8947 /* WorldMapHouse.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		977298A827367E8A00CF5303 /* World */ = {
 			isa = PBXGroup;
 			children = (
+				9765E4F8274A4360000C8947 /* Map */,
 				977298B92736834300CF5303 /* Color */,
 				977298AB27367EAD00CF5303 /* House.swift */,
 				977298AF27367F4400CF5303 /* Village.swift */,
@@ -364,6 +384,7 @@
 				975D669A272FFBD900D7F6C9 /* AppStorageKey.swift in Sources */,
 				975D6679272E95C500D7F6C9 /* RepoStatsViewModel.swift in Sources */,
 				97320EAD27411EEB00A0B9EE /* DebugView.swift in Sources */,
+				9765E4F6274A421B000C8947 /* WorldMap.swift in Sources */,
 				977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */,
 				977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */,
 				970F836F2748E550004F47C3 /* WorldStatsView.swift in Sources */,
@@ -379,12 +400,15 @@
 				975D665C272E939300D7F6C9 /* DataBaseTableView.swift in Sources */,
 				977298B22736806A00CF5303 /* World.swift in Sources */,
 				97320EB3274121A700A0B9EE /* WorldStatsViewModel.swift in Sources */,
+				9765E4FC274A475C000C8947 /* Coordinates.swift in Sources */,
 				975D6684272E95D100D7F6C9 /* RepoIgnore.swift in Sources */,
 				975D665A272E939300D7F6C9 /* GitWorldApp.swift in Sources */,
+				9765E4FE274A5030000C8947 /* WorldMapHouse.swift in Sources */,
 				977298B82736830C00CF5303 /* VillageColor.swift in Sources */,
 				975D6689272E95D100D7F6C9 /* Sequance+safe.swift in Sources */,
 				9741706727316C96008FD6C3 /* Logger.swift in Sources */,
 				9716D8F9273FDD8E0069190B /* WorldMapScene.swift in Sources */,
+				9765E4FA274A44CA000C8947 /* WorldMapVillage.swift in Sources */,
 				975D6687272E95D100D7F6C9 /* FileTraits.swift in Sources */,
 				977298B62736816E00CF5303 /* WorldBuilder.swift in Sources */,
 				975D6694272FED1200D7F6C9 /* RepoSetView.swift in Sources */,
