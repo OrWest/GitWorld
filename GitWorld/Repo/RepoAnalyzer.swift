@@ -58,8 +58,9 @@ class RepoAnalyzer: Codable {
                         
                         var relativeURL = url
                         if let range = url.absoluteString.range(of: baseURL.relativePath) {
-                            let relativePath = url.absoluteString[range.upperBound...]
-                            relativeURL = URL(fileURLWithPath: "." + String(relativePath), relativeTo: baseURL)
+                            let afterSlashIndex = url.absoluteString.index(after: range.upperBound)
+                            let relativePath = url.absoluteString[afterSlashIndex...]
+                            relativeURL = URL(fileURLWithPath: String(relativePath), relativeTo: baseURL)
                         }
                         filesURL.append(relativeURL)
                     }

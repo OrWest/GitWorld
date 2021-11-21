@@ -25,7 +25,7 @@ class WorldGenerator {
     }
     
     func generate(repoTraits: RepoTraits) -> World {
-        let groups = groupFilesByExtension(files: repoTraits.generalFiles)
+        let groups = groupFilesByExtension(files: repoTraits.generalFiles.filter { !shouldIgnoreFile($0) })
         
         for group in groups {
             let groupName = group.key
@@ -53,5 +53,9 @@ class WorldGenerator {
         }
         
         return groups
+    }
+    
+    private func shouldIgnoreFile(_ file: RepoFile) -> Bool {
+        return file.linesCount == 0
     }
 }
