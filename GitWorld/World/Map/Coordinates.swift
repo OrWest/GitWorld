@@ -19,8 +19,24 @@ extension Coordinates {
         return Coordinates(x: lh.x + rh.x,y: lh.y + rh.y)
     }
     
+    static func -(lh: Coordinates, rh: Coordinates) -> Coordinates {
+        return Coordinates(x: lh.x - rh.x,y: lh.y - rh.y)
+    }
+    
     func inverted() -> Coordinates {
         return Coordinates(x: x * -1, y: y * -1)
+    }
+    
+    func distance(to coordinate: Coordinates) -> Int {
+        let diff = self - coordinate
+        
+        let dSqrt = diff.x * diff.x + diff.y * diff.y
+        let d = sqrt(Double(dSqrt)).rounded(.up)
+        return Int(d)
+    }
+    
+    static func random(in closedRange: ClosedRange<Int>) -> Coordinates {
+        return Coordinates(x: Int.random(in: closedRange), y: Int.random(in: closedRange))
     }
 }
 
