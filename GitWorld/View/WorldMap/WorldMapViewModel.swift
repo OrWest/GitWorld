@@ -23,7 +23,6 @@ class WorldMapViewModel: ObservableObject {
         self.context = context
         
         self.worldMap = WorldMap(world: context.world)
-        print()
     }
     
     func logout() {

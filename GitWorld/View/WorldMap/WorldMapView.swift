@@ -12,14 +12,14 @@ struct WorldMapView: View {
 
     var viewModel: WorldMapViewModel
     
-    var scene: SKScene = {
+    var scene: WorldMapScene = {
         let screenWidth  = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
 
         let scene = WorldMapScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
-        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        scene.anchorPoint = CGPoint(x: 0, y: 0)
         return scene
     }()
         
@@ -42,6 +42,10 @@ struct WorldMapView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            scene.worldMap = viewModel.worldMap
+            scene.drawMap()
         }
     }
 }
