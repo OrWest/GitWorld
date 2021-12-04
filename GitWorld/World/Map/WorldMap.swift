@@ -8,11 +8,14 @@
 import Foundation
 
 class WorldMap {
-    private static let villagePlacingMinDistance = 10
-    private static let placingTryBeforeIncreasingDisance = 20
-    private static let rangeToGenerateCoordinate = 100
-    private static let stepToIncreaseRangeToGenerateCoordinate = 100
-    
+    private enum Constants {
+        static let villagePlacingMinDistance = 10
+        static let placingTryBeforeIncreasingDisance = 20
+        static let rangeToGenerateCoordinate = 100
+        static let stepToIncreaseRangeToGenerateCoordinate = 100
+        static let mapSizePadding = 20
+    }
+
     let world: World
     
     let villages: [WorldMapVillage]
@@ -46,12 +49,54 @@ class WorldMap {
         //var map = [[WorldMapVillage?]]()
         // village position - center -> fill for size
         
-        fatalError()
+        
+        let size = getSize(of: positions)
+        
+        var map = [[WorldMapVillage?]](repeating: [WorldMapVillage?](repeating: nil, count: size.x), count: size.y)
+        let mapCenter = Coordinates(x: size.x / 2 + 1, y: size.y / 2 + 1)
+        
+        for (villageCoordinate, village) in positions {
+            let absoluteCoordinate = villageCoordinate + mapCenter
+            let origin = absoluteCoordinate - village.center
+            
+            for i in 0..<village.size.0 {
+                for j in 0..<village.size.1 {
+                    map[origin.y + j][origin.x + i] = village
+                }
+            }
+        }
+        
+        return map
+    }
+    
+    private static func getSize(of positions: [Coordinates: WorldMapVillage]) -> Coordinates {
+        var minX = 0
+        var minY = 0
+        var maxX = 0
+        var maxY = 0
+        for (coord, village) in positions {
+            let leftBottomCoordinates = coord - village.center
+            let rightTopCoordinates = leftBottomCoordinates + Coordinates(x: village.size.0, y: village.size.1)
+            
+            minX = min(minX, leftBottomCoordinates.x)
+            minY = min(minY, leftBottomCoordinates.y)
+            maxX = max(maxX, rightTopCoordinates.x)
+            maxY = max(maxY, rightTopCoordinates.y)
+        }
+        
+        var x = maxX - minX + Constants.mapSizePadding * 2
+        var y = maxY - minY + Constants.mapSizePadding * 2
+        
+        // To have simetryc world like -10 12 rather then -10 9
+        if x % 2 == 0 { x += 1 }
+        if y % 2 == 0 { y += 1 }
+        
+        return Coordinates(x: x, y: y)
     }
     
     private static func generateSafeCoordinates(for village: WorldMapVillage, otherCoordinates: [Coordinates: WorldMapVillage]) -> Coordinates {
         var coordinates: Coordinates?
-        var range = rangeToGenerateCoordinate
+        var range = Constants.rangeToGenerateCoordinate
         var tryIndex = 0
         repeat {
             let randomCoordinate = Coordinates.random(in: -range...range)
@@ -61,9 +106,9 @@ class WorldMap {
                 tryIndex += 1
             }
             
-            if tryIndex >= placingTryBeforeIncreasingDisance {
+            if tryIndex >= Constants.placingTryBeforeIncreasingDisance {
                 tryIndex = 0
-                range += stepToIncreaseRangeToGenerateCoordinate
+                range += Constants.stepToIncreaseRangeToGenerateCoordinate
             }
             
         } while coordinates == nil
@@ -76,7 +121,7 @@ class WorldMap {
         let v1r = village.radius
         for (coord2, village2) in coordinates {
             let v2r = village2.radius
-            let minDistance = v1r + v2r + villagePlacingMinDistance
+            let minDistance = v1r + v2r + Constants.villagePlacingMinDistance
             let distance = coord.distance(to: coord2)
             
             if distance < minDistance {
