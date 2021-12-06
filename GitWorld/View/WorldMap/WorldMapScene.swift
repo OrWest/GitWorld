@@ -10,6 +10,8 @@ import SpriteKit
 class WorldMapScene: SKScene {
     private let houseTileGroupName = "house"
     private let grassTileGroupName = "grass"
+    private let yellowGrassTileGroupName = "yellow-grass"
+
     private let spriteSize = CGSize(width: 256, height: 256)
     private let minScale: CGFloat = 1.0
     private let villageNameLabelTopInset: CGFloat = 50
@@ -22,6 +24,7 @@ class WorldMapScene: SKScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         camera = cameraNode
         
@@ -47,6 +50,7 @@ class WorldMapScene: SKScene {
         
         let houseGroup = tileSet.tileGroups.first { $0.name == houseTileGroupName }
         let grassGroup = tileSet.tileGroups.first { $0.name == grassTileGroupName }
+        let yellowGrassGroup = tileSet.tileGroups.first { $0.name == yellowGrassTileGroupName }
         
         let map = worldMap.map
         for y in 0..<map.count {
@@ -57,7 +61,7 @@ class WorldMapScene: SKScene {
                     if let _ = mapRow.village.map[mapRow.positionInVillageMap.y][mapRow.positionInVillageMap.x] {
                         tileGroup = houseGroup
                     } else {
-                        tileGroup = grassGroup
+                        tileGroup = yellowGrassGroup
                     }
                 } else {
                     tileGroup = grassGroup
@@ -82,7 +86,7 @@ class WorldMapScene: SKScene {
             labelNode.fontColor = .red
             labelNode.text = mapVillage.village.name
             
-            let topCenterPosition = worldVillageCenter + Coordinates(x: 0, y: mapVillage.center.y)
+            let topCenterPosition = worldVillageCenter + Coordinates(x: 0, y: mapVillage.center.y * 2)
             let mapPosition = tileMap.centerOfTile(atColumn: topCenterPosition.y, row: topCenterPosition.x)
             
             // Add distance to size (from center) and add top inset.
