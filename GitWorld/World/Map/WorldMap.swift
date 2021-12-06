@@ -14,11 +14,11 @@ struct WorldMapRow {
 
 class WorldMap {
     private enum Constants {
-        static let villagePlacingMinDistance = 10
+        static let villagePlacingMinDistance = 3
         static let placingTryBeforeIncreasingDistance = 20
-        static let rangeToGenerateCoordinate = 100
-        static let stepToIncreaseRangeToGenerateCoordinate = 100
-        static let mapSizePadding = 20
+        static let rangeToGenerateCoordinate = 30
+        static let stepToIncreaseRangeToGenerateCoordinate = 10
+        static let mapSizePadding = 8
     }
 
     let world: World
