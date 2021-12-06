@@ -8,8 +8,10 @@
 import SpriteKit
 
 class WorldMapScene: SKScene {
-    private let spriteSize = CGSize(width: 5, height: 5)
-    private let maxScale: CGFloat = 4.0
+    private let houseTileGroupName = "house"
+    private let grassTileGroupName = "grass"
+    private let spriteSize = CGSize(width: 256, height: 256)
+    private let minScale: CGFloat = 1.0
     
     var worldMap: WorldMap!
     private var cameraNode = SKCameraNode()
@@ -33,24 +35,38 @@ class WorldMapScene: SKScene {
     }
     
     func drawMap() {
-        guard let worldMap = worldMap, !worldMap.map.isEmpty else {
+        guard let worldMap = worldMap, !worldMap.map.isEmpty, let tileSet = SKTileSet(named: "Tile Set") else {
             removeAllChildren()
             return
         }
         
+        let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.0, rows: worldMap.size.1, tileSize: spriteSize)
+        
+        let houseGroup = tileSet.tileGroups.first { $0.name == houseTileGroupName }
+        let grassGroup = tileSet.tileGroups.first { $0.name == grassTileGroupName }
+        
         let map = worldMap.map
         for y in 0..<map.count {
             for x in 0..<map[y].count {
-                let origin = CGPoint(x: CGFloat(x) * spriteSize.width, y: CGFloat(y) * spriteSize.height)
-                let node = SKShapeNode(rect: CGRect(origin: origin, size: spriteSize))
-                node.fillColor = map[y][x] == nil ? .green : .red
-                node.position = .init(x: -1, y: -1)
-                node.strokeColor = .clear
-                addChild(node)
+                var tileGroup: SKTileGroup?
+                
+                if let mapRow = map[y][x] {
+                    if let _ = mapRow.village.map[mapRow.positionInVillageMap.y][mapRow.positionInVillageMap.x] {
+                        tileGroup = houseGroup
+                    } else {
+                        tileGroup = grassGroup
+                    }
+                } else {
+                    tileGroup = grassGroup
+                }
+                
+                tileMap.setTileGroup(tileGroup, forColumn: y, row: x)
             }
         }
         
+        addChild(tileMap)
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        cameraNode.setScale(4.0)
     }
     
     @objc private func pinchGestureAction(_ sender: UIPinchGestureRecognizer) {
@@ -58,7 +74,7 @@ class WorldMapScene: SKScene {
             previousCameraScale = scale
         }
         
-        let newScale = min(previousCameraScale / sender.scale, maxScale)
+        let newScale = max(previousCameraScale / sender.scale, minScale)
         camera?.setScale(newScale)
     }
     

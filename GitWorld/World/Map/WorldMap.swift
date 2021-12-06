@@ -7,10 +7,15 @@
 
 import Foundation
 
+struct WorldMapRow {
+    let village: WorldMapVillage
+    let positionInVillageMap: Coordinates
+}
+
 class WorldMap {
     private enum Constants {
         static let villagePlacingMinDistance = 10
-        static let placingTryBeforeIncreasingDisance = 20
+        static let placingTryBeforeIncreasingDistance = 20
         static let rangeToGenerateCoordinate = 100
         static let stepToIncreaseRangeToGenerateCoordinate = 100
         static let mapSizePadding = 20
@@ -19,20 +24,25 @@ class WorldMap {
     let world: World
     
     let villages: [WorldMapVillage]
-    let map: [[WorldMapVillage?]]
+    let map: [[WorldMapRow?]]
+    let size: (Int, Int)
     
     init(world: World) {
         self.world = world
         let villages = WorldMap.generateVillages(world: world)
         self.villages = villages
-        self.map = WorldMap.placeVillages(villages: villages)
+        
+        let map = WorldMap.placeVillages(villages: villages)
+        self.map = map
+        
+        self.size = (map.count, map[safe: 0]?.count ?? 0)
     }
     
     private static func generateVillages(world: World) -> [WorldMapVillage] {
         return world.villages.map { WorldMapVillage(village: $0) }
     }
     
-    private static func placeVillages(villages: [WorldMapVillage]) -> [[WorldMapVillage?]] {
+    private static func placeVillages(villages: [WorldMapVillage]) -> [[WorldMapRow?]] {
         var villages = villages.shuffled()
         var positions = [Coordinates: WorldMapVillage]()
         
@@ -49,7 +59,7 @@ class WorldMap {
         let size = sizeAndCenter.0
         let mapCenter = sizeAndCenter.1
         
-        var map = [[WorldMapVillage?]](repeating: [WorldMapVillage?](repeating: nil, count: size.x), count: size.y)
+        var map = [[WorldMapRow?]](repeating: [WorldMapRow?](repeating: nil, count: size.x), count: size.y)
         
         for (villageCoordinate, village) in positions {
             let absoluteCoordinate = villageCoordinate + mapCenter
@@ -57,7 +67,7 @@ class WorldMap {
             
             for i in 0..<village.size.0 {
                 for j in 0..<village.size.1 {
-                    map[origin.y + j][origin.x + i] = village
+                    map[origin.y + j][origin.x + i] = WorldMapRow(village: village, positionInVillageMap: Coordinates(x: i, y: j))
                 }
             }
         }
@@ -105,7 +115,7 @@ class WorldMap {
                 tryIndex += 1
             }
             
-            if tryIndex >= Constants.placingTryBeforeIncreasingDisance {
+            if tryIndex >= Constants.placingTryBeforeIncreasingDistance {
                 tryIndex = 0
                 range += Constants.stepToIncreaseRangeToGenerateCoordinate
             }
