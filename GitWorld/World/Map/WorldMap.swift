@@ -65,6 +65,8 @@ class WorldMap {
             let absoluteCoordinate = villageCoordinate + mapCenter
             let origin = absoluteCoordinate - village.center
             
+            village.worldPosition = absoluteCoordinate
+            
             for i in 0..<village.size.0 {
                 for j in 0..<village.size.1 {
                     map[origin.y + j][origin.x + i] = WorldMapRow(village: village, positionInVillageMap: Coordinates(x: i, y: j))

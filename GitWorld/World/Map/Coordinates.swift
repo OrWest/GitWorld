@@ -27,6 +27,10 @@ extension Coordinates {
         return Coordinates(x: lh.x - rh.x,y: lh.y - rh.y)
     }
     
+    static func *(lh: Coordinates, rh: Int) -> Coordinates {
+        return Coordinates(x: lh.x * rh,y: lh.y * rh)
+    }
+    
     func inverted() -> Coordinates {
         return Coordinates(x: x * -1, y: y * -1)
     }

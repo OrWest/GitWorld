@@ -11,6 +11,7 @@ class WorldMapVillage {
     let village: Village
     let map: [[WorldMapHouse?]]
     let size: (Int, Int)
+    var worldPosition: Coordinates?
     var radius: Int {
         let r = Float(max(size.0, size.1)) / 2
         return Int(r.rounded(.up))

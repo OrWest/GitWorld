@@ -12,9 +12,11 @@ class WorldMapScene: SKScene {
     private let grassTileGroupName = "grass"
     private let spriteSize = CGSize(width: 256, height: 256)
     private let minScale: CGFloat = 1.0
+    private let villageNameLabelTopInset: CGFloat = 50
     
     var worldMap: WorldMap!
     private var cameraNode = SKCameraNode()
+    private var tileMap: SKTileMapNode!
     private var previousCameraScale: CGFloat = 1.0
     private var panBeginPosition: CGPoint = .zero
     
@@ -41,6 +43,7 @@ class WorldMapScene: SKScene {
         }
         
         let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.0, rows: worldMap.size.1, tileSize: spriteSize)
+        self.tileMap = tileMap
         
         let houseGroup = tileSet.tileGroups.first { $0.name == houseTileGroupName }
         let grassGroup = tileSet.tileGroups.first { $0.name == grassTileGroupName }
@@ -67,6 +70,27 @@ class WorldMapScene: SKScene {
         addChild(tileMap)
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         cameraNode.setScale(4.0)
+     
+        addLabels()
+    }
+    
+    private func addLabels() {
+        for mapVillage in worldMap.villages {
+            guard let worldVillageCenter = mapVillage.worldPosition else { continue }
+            let labelNode = SKLabelNode()
+            labelNode.fontSize = 200
+            labelNode.fontColor = .red
+            labelNode.text = mapVillage.village.name
+            
+            let topCenterPosition = worldVillageCenter + Coordinates(x: 0, y: mapVillage.center.y)
+            let mapPosition = tileMap.centerOfTile(atColumn: topCenterPosition.y, row: topCenterPosition.x)
+            
+            // Add distance to size (from center) and add top inset.
+            let position = CGPoint(x: mapPosition.x, y: mapPosition.y + spriteSize.height / 2 + villageNameLabelTopInset)
+            
+            labelNode.position = position
+            addChild(labelNode)
+        }
     }
     
     @objc private func pinchGestureAction(_ sender: UIPinchGestureRecognizer) {
@@ -105,5 +129,11 @@ extension WorldMapScene: UIGestureRecognizerDelegate {
 private extension CGPoint {
     static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+}
+
+private extension Coordinates {
+    func cgPoint() -> CGPoint {
+        return CGPoint(x: x, y: y)
     }
 }
