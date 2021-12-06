@@ -25,8 +25,8 @@ struct WorldMapView: View {
         
     var body: some View {
         NavigationView {
-            SpriteView(scene: scene)
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            SpriteView(scene: scene, options: [.shouldCullNonVisibleNodes], debugOptions: [.showsFPS, .showsNodeCount, .showsDrawCount])
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 50) // to show fps
                 .ignoresSafeArea()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

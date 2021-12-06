@@ -12,6 +12,10 @@ struct Coordinates {
     let y: Int
 }
 
+extension Coordinates: CustomStringConvertible {
+    var description: String { "(\(x), \(y))" } 
+}
+
 extension Coordinates {
     static let zero = Coordinates(x: 0, y: 0)
     

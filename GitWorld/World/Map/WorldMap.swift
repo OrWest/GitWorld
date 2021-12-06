@@ -45,15 +45,11 @@ class WorldMap {
             positions[coordinates] = village
         }
         
-        //let size
-        //var map = [[WorldMapVillage?]]()
-        // village position - center -> fill for size
-        
-        
-        let size = getSize(of: positions)
+        let sizeAndCenter = getSizeAndCenter(of: positions)
+        let size = sizeAndCenter.0
+        let mapCenter = sizeAndCenter.1
         
         var map = [[WorldMapVillage?]](repeating: [WorldMapVillage?](repeating: nil, count: size.x), count: size.y)
-        let mapCenter = Coordinates(x: size.x / 2 + 1, y: size.y / 2 + 1)
         
         for (villageCoordinate, village) in positions {
             let absoluteCoordinate = villageCoordinate + mapCenter
@@ -69,7 +65,7 @@ class WorldMap {
         return map
     }
     
-    private static func getSize(of positions: [Coordinates: WorldMapVillage]) -> Coordinates {
+    private static func getSizeAndCenter(of positions: [Coordinates: WorldMapVillage]) -> (Coordinates, Coordinates) {
         var minX = 0
         var minY = 0
         var maxX = 0
@@ -91,7 +87,10 @@ class WorldMap {
         if x % 2 == 0 { x += 1 }
         if y % 2 == 0 { y += 1 }
         
-        return Coordinates(x: x, y: y)
+        // Shift center to start drawing with padding
+        let center = Coordinates(x: minX, y: minY).inverted() + Coordinates(x: Constants.mapSizePadding, y: Constants.mapSizePadding)
+        
+        return (Coordinates(x: x, y: y), center)
     }
     
     private static func generateSafeCoordinates(for village: WorldMapVillage, otherCoordinates: [Coordinates: WorldMapVillage]) -> Coordinates {
