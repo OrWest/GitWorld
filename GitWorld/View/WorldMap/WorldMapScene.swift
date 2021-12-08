@@ -41,29 +41,31 @@ class WorldMapScene: SKScene {
             removeAllChildren()
             return
         }
-        
+            
         let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.0, rows: worldMap.size.1, tileSize: spriteSize)
+        tileMap.fill(with: tileSet.tileGroups.first { $0.name == grassTileGroupName })
+        tileMap.zPosition = -1
         self.tileMap = tileMap
-        
-        let houseGroup = tileSet.tileGroups.first { $0.name == houseTileGroupName }
-        let grassGroup = tileSet.tileGroups.first { $0.name == grassTileGroupName }
         
         let map = worldMap.map
         for y in 0..<map.count {
             for x in 0..<map[y].count {
-                var tileGroup: SKTileGroup?
+                guard let mapRow = map[y][x] else { continue }
                 
-                if let mapRow = map[y][x] {
-                    if let _ = mapRow.village.map[mapRow.positionInVillageMap.y][mapRow.positionInVillageMap.x] {
-                        tileGroup = houseGroup
-                    } else {
-                        tileGroup = grassGroup
-                    }
+                let position = tileMap.centerOfTile(atColumn: y, row: x)
+                
+                if let _ = mapRow.village.map[mapRow.positionInVillageMap.y][mapRow.positionInVillageMap.x] {
+                    let houseSprite = SKSpriteNode(imageNamed: "house")
+                    
+                    houseSprite.position = position
+                    houseSprite.size = spriteSize
+                    addChild(houseSprite)
                 } else {
-                    tileGroup = grassGroup
+                    let yellowNode = SKSpriteNode(color: .yellow.withAlphaComponent(0.5), size: spriteSize)
+                    yellowNode.position = position
+
+                    addChild(yellowNode)
                 }
-                
-                tileMap.setTileGroup(tileGroup, forColumn: y, row: x)
             }
         }
         
