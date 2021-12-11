@@ -11,8 +11,9 @@ class WorldMapScene: SKScene {
     private let houseTileGroupName = "house"
     private let grassTileGroupName = "grass"
     private let spriteSize = CGSize(width: 256, height: 256)
-    private let minScale: CGFloat = 1.0
-    private let villageNameLabelTopInset: CGFloat = 50
+    private let minScale: CGFloat = 4.0
+    private let defaultScale: CGFloat = 16.0
+    private let villageNameLabelTopInset: CGFloat = 200
     
     var worldMap: WorldMap!
     private var cameraNode = SKCameraNode()
@@ -42,7 +43,7 @@ class WorldMapScene: SKScene {
             return
         }
             
-        let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.height, rows: worldMap.size.width, tileSize: spriteSize)
+        let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.width, rows: worldMap.size.height, tileSize: spriteSize)
         tileMap.fill(with: tileSet.tileGroups.first { $0.name == grassTileGroupName })
         tileMap.zPosition = -1
         self.tileMap = tileMap
@@ -52,7 +53,7 @@ class WorldMapScene: SKScene {
             for x in 0..<map[y].count {
                 guard let mapRow = map[y][x] else { continue }
                 
-                let position = tileMap.centerOfTile(atColumn: y, row: x)
+                let position = tileMap.centerOfTile(atColumn: x, row: y)
                 
                 if let _ = mapRow.village.map[mapRow.positionInVillageMap.y][mapRow.positionInVillageMap.x] {
                     let houseSprite = SKSpriteNode(imageNamed: "house")
@@ -71,7 +72,7 @@ class WorldMapScene: SKScene {
         
         addChild(tileMap)
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        cameraNode.setScale(4.0)
+        cameraNode.setScale(defaultScale)
      
         addLabels()
     }
@@ -81,14 +82,19 @@ class WorldMapScene: SKScene {
             guard let worldVillageCenter = mapVillage.worldPosition else { continue }
             let labelNode = SKLabelNode()
             labelNode.fontSize = 200
+            labelNode.fontName = UIFont.boldSystemFont(ofSize: 0).fontName
             labelNode.fontColor = .red
             labelNode.text = mapVillage.village.name
             
             let topCenterPosition = worldVillageCenter + Coordinates(x: 0, y: mapVillage.center.y)
-            let mapPosition = tileMap.centerOfTile(atColumn: topCenterPosition.y, row: topCenterPosition.x)
+            let mapPosition = tileMap.centerOfTile(atColumn: topCenterPosition.x, row: topCenterPosition.y)
             
-            // Add distance to size (from center) and add top inset.
-            let position = CGPoint(x: mapPosition.x, y: mapPosition.y + spriteSize.height / 2 + villageNameLabelTopInset)
+            // If village size is odd (2,4,6) center should be not tile center, but cross.
+            let xCorrection = mapVillage.size.width % 2 == 0 ? spriteSize.width / 2 : 0
+            let yCorrection = mapVillage.size.height % 2 == 0 ? spriteSize.height : 0
+            
+            // Add distance to side (from center) and add top inset.
+            let position = CGPoint(x: mapPosition.x - xCorrection, y: mapPosition.y + spriteSize.height / 2 + villageNameLabelTopInset - yCorrection)
             
             labelNode.position = position
             addChild(labelNode)
