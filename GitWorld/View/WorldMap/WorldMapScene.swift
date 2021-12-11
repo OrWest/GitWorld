@@ -42,7 +42,7 @@ class WorldMapScene: SKScene {
             return
         }
             
-        let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.0, rows: worldMap.size.1, tileSize: spriteSize)
+        let tileMap = SKTileMapNode(tileSet: tileSet, columns: worldMap.size.height, rows: worldMap.size.width, tileSize: spriteSize)
         tileMap.fill(with: tileSet.tileGroups.first { $0.name == grassTileGroupName })
         tileMap.zPosition = -1
         self.tileMap = tileMap

@@ -88,7 +88,6 @@ class Repo {
                         
                         let progress = progressPointer.pointee
                         progressBlock(Int(progress.received_objects), Int(progress.total_objects))
-                        Logger.log("Clone progress: \(progress.received_objects)/\(progress.total_objects)")
                     }
                     self.cloned = true
                     Logger.log("[Repo] \(self.localURL.lastPathComponent) cloned")

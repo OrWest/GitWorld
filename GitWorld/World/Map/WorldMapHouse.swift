@@ -7,10 +7,10 @@
 
 import Foundation
 
-class WorldMapHouse {
+class WorldMapHouse: Codable {
     let house: House
     let coordinates: Coordinates
-    private(set) var neighbour: [Coordinates: WorldMapHouse] = [:]
+    private(set) var neighbour: Set<Coordinates> = []
     
     init(house: House, coordinates: Coordinates) {
         self.house = house
@@ -18,7 +18,7 @@ class WorldMapHouse {
     }
     
     func addNeighbour(_ house: WorldMapHouse, offset: Coordinates) {
-        neighbour[offset] = house
-        house.neighbour[offset.inverted()] = self
+        neighbour.insert(offset)
+        house.neighbour.insert(offset.inverted())
     }
 }

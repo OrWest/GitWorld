@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct WorldMapRow {
+struct WorldMapRow: Codable {
     let village: WorldMapVillage
     let positionInVillageMap: Coordinates
 }
 
-class WorldMap {
+class WorldMap: Codable {
     private enum Constants {
         static let villagePlacingMinDistance = 3
         static let placingTryBeforeIncreasingDistance = 20
@@ -25,7 +25,7 @@ class WorldMap {
     
     let villages: [WorldMapVillage]
     let map: [[WorldMapRow?]]
-    let size: (Int, Int)
+    let size: Size
     
     init(world: World) {
         self.world = world
@@ -35,7 +35,7 @@ class WorldMap {
         let map = WorldMap.placeVillages(villages: villages)
         self.map = map
         
-        self.size = (map.count, map[safe: 0]?.count ?? 0)
+        self.size = Size(width: map[safe: 0]?.count ?? 0, height: map.count)
     }
     
     private static func generateVillages(world: World) -> [WorldMapVillage] {
@@ -67,8 +67,8 @@ class WorldMap {
             
             village.worldPosition = absoluteCoordinate
             
-            for i in 0..<village.size.0 {
-                for j in 0..<village.size.1 {
+            for i in 0..<village.size.width {
+                for j in 0..<village.size.height {
                     map[origin.y + j][origin.x + i] = WorldMapRow(village: village, positionInVillageMap: Coordinates(x: i, y: j))
                 }
             }
@@ -84,7 +84,7 @@ class WorldMap {
         var maxY = 0
         for (coord, village) in positions {
             let leftBottomCoordinates = coord - village.center
-            let rightTopCoordinates = leftBottomCoordinates + Coordinates(x: village.size.0, y: village.size.1)
+            let rightTopCoordinates = leftBottomCoordinates + Coordinates(x: village.size.width, y: village.size.height)
             
             minX = min(minX, leftBottomCoordinates.x)
             minY = min(minY, leftBottomCoordinates.y)

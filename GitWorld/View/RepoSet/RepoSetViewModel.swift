@@ -131,12 +131,13 @@ class RepoSetViewModel: ObservableObject {
                 let worldName = repo.localURL.deletingPathExtension().lastPathComponent
                 let worldGenerator = WorldGenerator(name: worldName)
                 let world = await worldGenerator.generate(repoTraits: analyzer.repoTraits)
+                let worldMap = WorldMap(world: world)
                 
                 DispatchQueue.main.async {
                     self.isGeneratingWorld = false
                 }
                 
-                self.context = AppContext(repo: repo, world: world, analyzer: analyzer)
+                self.context = AppContext(repo: repo, world: world, worldMap: worldMap, analyzer: analyzer)
                                     
                 if !cancelObject!.isCancelled {
                     DispatchQueue.main.async {
