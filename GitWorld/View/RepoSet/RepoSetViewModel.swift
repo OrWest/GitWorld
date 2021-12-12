@@ -155,6 +155,7 @@ class RepoSetViewModel: ObservableObject {
 extension RepoSetViewModel {
     static func stub(cloning: Bool, progress: Float = 0.81, cloned: Int = 81, toClone: Int = 100) -> RepoSetViewModel {
         let model = RepoSetViewModel(context: nil)
+        model.gitURLInSettings = "123"
         model.cloneProgress = Progress(progress: progress, madeCount: cloned, amount: toClone)
         return model
     }
