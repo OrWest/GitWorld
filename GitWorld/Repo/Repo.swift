@@ -48,7 +48,7 @@ class Repo {
             folderName = lastComponent
         }
         
-        self.localURL = rootURL.appendingPathComponent(folderName)
+        self.localURL = rootURL.appendingPathComponent(folderName, isDirectory: true)
         
         do {
             repo = try GTRepository.init(url: localURL)
