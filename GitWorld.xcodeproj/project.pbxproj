@@ -45,6 +45,7 @@
 		977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BA2736836800CF5303 /* VillageColorDistributor.swift */; };
 		977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BD2736B76200CF5303 /* WorldMapView.swift */; };
 		977298C02736BC8200CF5303 /* WorldMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */; };
+		97B6D09B2764BEE500D9ECF8 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B6D09A2764BEE500D9ECF8 /* Size.swift */; };
 		F23AEBCE275E4C83008DE06D /* Tiles.sks in Resources */ = {isa = PBXBuildFile; fileRef = F23AEBCD275E4C83008DE06D /* Tiles.sks */; };
 		F26CCC1E273923C0001813DC /* RepoProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26CCC1D273923C0001813DC /* RepoProgressView.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		977298BA2736836800CF5303 /* VillageColorDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageColorDistributor.swift; sourceTree = "<group>"; };
 		977298BD2736B76200CF5303 /* WorldMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapView.swift; sourceTree = "<group>"; };
 		977298BF2736BC8200CF5303 /* WorldMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapViewModel.swift; sourceTree = "<group>"; };
+		97B6D09A2764BEE500D9ECF8 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F23AEBCD275E4C83008DE06D /* Tiles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Tiles.sks; sourceTree = "<group>"; };
 		F26CCC1D273923C0001813DC /* RepoProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -249,6 +251,7 @@
 				9765E4F9274A44CA000C8947 /* WorldMapVillage.swift */,
 				9765E4FB274A475C000C8947 /* Coordinates.swift */,
 				9765E4FD274A5030000C8947 /* WorldMapHouse.swift */,
+				97B6D09A2764BEE500D9ECF8 /* Size.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				9765E4F6274A421B000C8947 /* WorldMap.swift in Sources */,
 				977298BE2736B76200CF5303 /* WorldMapView.swift in Sources */,
 				977298BB2736836800CF5303 /* VillageColorDistributor.swift in Sources */,
+				97B6D09B2764BEE500D9ECF8 /* Size.swift in Sources */,
 				970F836F2748E550004F47C3 /* WorldStatsView.swift in Sources */,
 				977298B027367F4400CF5303 /* Village.swift in Sources */,
 				975D6663272E939600D7F6C9 /* Persistence.swift in Sources */,
@@ -549,7 +553,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GitWorld/Preview Content\"";
-				DEVELOPMENT_TEAM = 2FA6387WHP;
+				DEVELOPMENT_TEAM = 5JSRW6ED5S;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -569,7 +573,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld.wwweshka;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -585,7 +589,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GitWorld/Preview Content\"";
-				DEVELOPMENT_TEAM = 2FA6387WHP;
+				DEVELOPMENT_TEAM = 5JSRW6ED5S;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -605,7 +609,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amo.GitWorld.wwweshka;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

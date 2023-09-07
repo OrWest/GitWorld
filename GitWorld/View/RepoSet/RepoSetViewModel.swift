@@ -131,12 +131,13 @@ class RepoSetViewModel: ObservableObject {
                 let worldName = repo.localURL.deletingPathExtension().lastPathComponent
                 let worldGenerator = WorldGenerator(name: worldName)
                 let world = await worldGenerator.generate(repoTraits: analyzer.repoTraits)
+                let worldMap = WorldMap(world: world)
                 
                 DispatchQueue.main.async {
                     self.isGeneratingWorld = false
                 }
                 
-                self.context = AppContext(repo: repo, world: world, analyzer: analyzer)
+                self.context = AppContext(repo: repo, world: world, worldMap: worldMap, analyzer: analyzer)
                                     
                 if !cancelObject!.isCancelled {
                     DispatchQueue.main.async {
@@ -154,6 +155,7 @@ class RepoSetViewModel: ObservableObject {
 extension RepoSetViewModel {
     static func stub(cloning: Bool, progress: Float = 0.81, cloned: Int = 81, toClone: Int = 100) -> RepoSetViewModel {
         let model = RepoSetViewModel(context: nil)
+        model.gitURLInSettings = "123"
         model.cloneProgress = Progress(progress: progress, madeCount: cloned, amount: toClone)
         return model
     }

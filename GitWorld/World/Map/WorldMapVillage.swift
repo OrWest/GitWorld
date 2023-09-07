@@ -7,16 +7,16 @@
 
 import Foundation
 
-class WorldMapVillage {    
+class WorldMapVillage: Codable {    
     let village: Village
     let map: [[WorldMapHouse?]]
-    let size: (Int, Int)
+    let size: Size
     var worldPosition: Coordinates?
     var radius: Int {
-        let r = Float(max(size.0, size.1)) / 2
+        let r = Float(max(size.width, size.height)) / 2
         return Int(r.rounded(.up))
     }
-    var center: Coordinates { Coordinates(x: size.0 / 2, y: size.1 / 2) }
+    var center: Coordinates { Coordinates(x: size.width / 2, y: size.height / 2) }
     
     init(village: Village) {
         self.village = village
@@ -26,9 +26,9 @@ class WorldMapVillage {
         self.map = map
 
         if map.isEmpty {
-            self.size = (0, 0)
+            self.size = .zero
         } else {
-            self.size = (map[0].count, map.count)
+            self.size = Size(width: map[0].count, height: map.count)
         }
     }
     
@@ -47,7 +47,7 @@ class WorldMapVillage {
                 let randomMapHouse = mapHouses.randomElement()!
                 let randomOffset = getRandomOffsetCoordinates()
                 
-                if randomMapHouse.neighbour[randomOffset] == nil {
+                if !randomMapHouse.neighbour.contains(randomOffset) {
                     let newCoordinates = randomMapHouse.coordinates + randomOffset
                     
                     let newMapHouse = WorldMapHouse(house: house, coordinates: newCoordinates)

@@ -35,12 +35,25 @@ struct RepoSetView: View {
             }
             .font(.largeTitle)
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
-            TextField("URL", text: $gitURL)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .disabled(showCancel)
+            ZStack(alignment: .trailing) {
+                TextField("URL", text: $gitURL)
+                    .textFieldStyle(.roundedBorder)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .disabled(showCancel)
+                if !gitURL.isEmpty {
+                    Button(
+                        action: { gitURL = "" },
+                        label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(Color(UIColor.opaqueSeparator))
+                        }
+                    )
+                        .padding(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        .contentShape(Rectangle())
+                }
+            }
+            .padding()
             
             Button(action: buttonPressed) {
                 if showCancel {
